@@ -119,38 +119,38 @@
 // 	}
 // }
 
-TEST_CASE("List: Push-front", "[List]") {
-	ft::list<int> myList;
-	myList.push_back(1);
-	myList.push_front(2);
-	myList.push_front(26);
-	// ft::list<int>::iterator it = myList.begin();
-	// REQUIRE(*it == 26);
-	// it++;
-	// REQUIRE(*it == 2);
-}
+// TEST_CASE("List: Push-front", "[List]") {
+// 	ft::list<int> myList;
+// 	myList.push_back(1);
+// 	myList.push_front(2);
+// 	myList.push_front(26);
+// 	// ft::list<int>::iterator it = myList.begin();
+// 	// REQUIRE(*it == 26);
+// 	// it++;
+// 	// REQUIRE(*it == 2);
+// }
 
-TEST_CASE("List: Pop-front", "[List]") {
-	ft::list<int> myList;
-	myList.push_back(1);
-	myList.push_back(2);
-	myList.push_back(3);
-	myList.pop_front();
-	myList.pop_front();
-	// ft::list<int>::iterator it = myList.begin();
-	// REQUIRE(*it == 3);
-}
+// TEST_CASE("List: Pop-front", "[List]") {
+// 	ft::list<int> myList;
+// 	myList.push_back(1);
+// 	myList.push_back(2);
+// 	myList.push_back(3);
+// 	myList.pop_front();
+// 	myList.pop_front();
+// 	// ft::list<int>::iterator it = myList.begin();
+// 	// REQUIRE(*it == 3);
+// }
 
-TEST_CASE("List: Pop-back", "[List]") {
-	ft::list<int> myList;
-	myList.push_back(1);
-	myList.push_back(2);
-	myList.push_back(3);
-	myList.pop_back();
-	myList.pop_back();
-	// ft::list<int>::iterator it = myList.begin();
-	// REQUIRE(*it == 1);
-}
+// TEST_CASE("List: Pop-back", "[List]") {
+// 	ft::list<int> myList;
+// 	myList.push_back(1);
+// 	myList.push_back(2);
+// 	myList.push_back(3);
+// 	myList.pop_back();
+// 	myList.pop_back();
+// 	// ft::list<int>::iterator it = myList.begin();
+// 	// REQUIRE(*it == 1);
+// }
 
 // TEST_CASE("List: Assign", "[List]") {
 // 	ft::list<int>	oneL;
@@ -182,63 +182,63 @@ TEST_CASE("List: Pop-back", "[List]") {
 // 	REQUIRE(oneL.size() == 5);
 // }
 
-TEST_CASE("List: Insert", "[List]") {
-	ft::list<int> mylist;
-	ft::list<int>::iterator it;
+// TEST_CASE("List: Insert", "[List]") {
+// 	ft::list<int> mylist;
+// 	ft::list<int>::iterator it;
 
-	// set some initial values:
-	for (int i=1; i<=5; ++i) mylist.push_back(i); // 1 2 3 4 5
+// 	// set some initial values:
+// 	for (int i=1; i<=5; ++i) mylist.push_back(i); // 1 2 3 4 5
 
-	it = mylist.begin();
-	++it;       // it points now to number 2           ^
-	REQUIRE(*it == 2);
-	mylist.insert (it,10);                        // 1 10 2 3 4 5
-	REQUIRE(mylist.size() == 6);
-	// "it" still points to number 2                           ^
-	mylist.insert (it,2,20);                      // 1 10 20 20 2 3 4 5
-	REQUIRE(mylist.size() == 8);
-	// --it;       // it points now to the second 20            ^
-	// REQUIRE(*it == 20);
-	// std::vector<int> myvector (2,30);
-	// mylist.insert (it,myvector.begin(),myvector.end());
-	// // 1 10 20 30 30 20 2 3 4 5
-	// //               ^
-	// it--;
-	// REQUIRE(*it == 30);
-	// REQUIRE(mylist.size() == 10);
-}
+// 	it = mylist.begin();
+// 	++it;       // it points now to number 2           ^
+// 	REQUIRE(*it == 2);
+// 	mylist.insert (it,10);                        // 1 10 2 3 4 5
+// 	REQUIRE(mylist.size() == 6);
+// 	// "it" still points to number 2                           ^
+// 	mylist.insert (it,2,20);                      // 1 10 20 20 2 3 4 5
+// 	REQUIRE(mylist.size() == 8);
+// 	// --it;       // it points now to the second 20            ^
+// 	// REQUIRE(*it == 20);
+// 	// std::vector<int> myvector (2,30);
+// 	// mylist.insert (it,myvector.begin(),myvector.end());
+// 	// // 1 10 20 30 30 20 2 3 4 5
+// 	// //               ^
+// 	// it--;
+// 	// REQUIRE(*it == 30);
+// 	// REQUIRE(mylist.size() == 10);
+// }
 
-TEST_CASE("List: Erase", "[List]") {
-	ft::list<int> mylist;
-	ft::list<int>::iterator it1,it2;
-	// set some values:
-	for (int i=1; i<10; ++i) mylist.push_back(i*10);
-										// 10 20 30 40 50 60 70 80 90
-	it1 = it2 = mylist.begin(); 		// ^^
-	
-	// advance (it2,6);				// ^                 ^
-	// ++it1;								//    ^              ^
-	// REQUIRE(mylist.size() == 9);
-	// REQUIRE(*it1 == 20);
-	// REQUIRE(*it2 == 70);
-	// it1 = mylist.erase (it1);   // 10 30 40 50 60 70 80 90
-	// 							//    ^           ^
-	// REQUIRE(*it1 == 30);
-	// REQUIRE(*it2 == 70);
-	// REQUIRE(mylist.size() == 8);
-	// it2 = mylist.erase (it2);	// 10 30 40 50 60 80 90
-	// 							//    ^           ^
-	// ++it1;						//       ^        ^
-	// --it2;						//       ^     ^
-	// REQUIRE(*it1 == 40);
-	// REQUIRE(*it2 == 60);
-	// REQUIRE(mylist.size() == 7);
-	// it1 = mylist.erase (it1,it2);		// 10 30 60 80 90
-	// 									//       ^
-	// REQUIRE(*it1 == 60);
-	// REQUIRE(*it2 == 60);
-	// REQUIRE(mylist.size() == 5);
-}
+// TEST_CASE("List: Erase", "[List]") {
+// 	ft::list<int> mylist;
+// 	// ft::list<int>::iterator it1,it2;
+// 	// set some values:
+// 	// for (int i=1; i<10; ++i) mylist.push_back(i*10);
+// 	// 									// 10 20 30 40 50 60 70 80 90
+// 	// it1 = it2 = mylist.begin(); 		// ^^
+
+// 	// advance (it2,6);				// ^                 ^
+// 	// ++it1;								//    ^              ^
+// 	// REQUIRE(mylist.size() == 9);
+// 	// REQUIRE(*it1 == 20);
+// 	// REQUIRE(*it2 == 70);
+// 	// it1 = mylist.erase (it1);   // 10 30 40 50 60 70 80 90
+// 	// 							//    ^           ^
+// 	// REQUIRE(*it1 == 30);
+// 	// REQUIRE(*it2 == 70);
+// 	// REQUIRE(mylist.size() == 8);
+// 	// it2 = mylist.erase (it2);	// 10 30 40 50 60 80 90
+// 	// 							//    ^           ^
+// 	// ++it1;						//       ^        ^
+// 	// --it2;						//       ^     ^
+// 	// REQUIRE(*it1 == 40);
+// 	// REQUIRE(*it2 == 60);
+// 	// REQUIRE(mylist.size() == 7);
+// 	// it1 = mylist.erase (it1,it2);		// 10 30 60 80 90
+// 	// 									//       ^
+// 	// REQUIRE(*it1 == 60);
+// 	// REQUIRE(*it2 == 60);
+// 	// REQUIRE(mylist.size() == 5);
+// }
 
 // TEST_CASE("List: Swap", "[List]") {
 // 	ft::list<int> first (3,100);   // three ints with a value of 100
@@ -336,15 +336,14 @@ TEST_CASE("List: Erase", "[List]") {
 // }
 
 // TEST_CASE("List: Remove", "[List]") {
-// 	int myints[]= {17,89,7,7};
-// 	ft::list<int> mylist (myints,myints+4);
+// 	int myints[]= {17,7,7,89,7,7, 5, 5};
+// 	ft::list<int> mylist (myints,myints+8);
 
 // 	mylist.remove(7);
-// 	// mylist contains: 17 7 14
-// 	REQUIRE(mylist.size() == 2);
+// 	REQUIRE(mylist.size() == 4);
 // }
 
-// // a predicate implemented as a function:
+// a predicate implemented as a function:
 // bool single_digit (const int& value) { return (value<10); }
 
 // // a predicate implemented as a class:
@@ -352,7 +351,7 @@ TEST_CASE("List: Erase", "[List]") {
 // 	bool operator() (const int& value) { return (value%2)==1; }
 // };
 // TEST_CASE("List: Remove_if", "[List]") {
-// 	int myints[]= {15,36,7,17,20,39,4,1};
+// 	int myints[]= {15,36,7,7,17,20,39,4,1};
 // 	ft::list<int> mylist (myints,myints+8);   // 15 36 7 17 20 39 4 1
 
 // 	mylist.remove_if (single_digit);           // 15 36 17 20 39
@@ -459,53 +458,53 @@ TEST_CASE("List: Erase", "[List]") {
 // 	}
 // }
 
-// // compare only integral part:
-// bool mycomparison (double first, double second)
-// { return ( int(first)<int(second) ); }
-// TEST_CASE("List: Merge", "[List]") {
-// 	ft::list<double> first, second;
-// 	ft::list<double>::iterator it;
+// compare only integral part:
+bool mycomparison (double first, double second)
+{ return ( int(first)<int(second) ); }
+TEST_CASE("List: Merge", "[List]") {
+	ft::list<double> first, second;
+	ft::list<double>::iterator it;
 
-// 	first.push_back (3.1);
-// 	first.push_back (2.2);
-// 	first.push_back (2.9);
+	first.push_back (3.1);
+	first.push_back (2.2);
+	first.push_back (2.9);
 
-// 	second.push_back (3.7);
-// 	second.push_back (7.1);
-// 	second.push_back (1.4);
+	second.push_back (3.7);
+	second.push_back (7.1);
+	second.push_back (1.4);
 
-// 	first.sort();
-// 	second.sort();
+	first.sort();
+	second.sort();
 
-// 	it = second.begin();
-// 	double* ptr = &(*it);
+	it = second.begin();
+	double* ptr = &(*it);
 
-// 	first.merge(second);
-// 	// first contains: 1.4 2.2 2.9 3.1 3.7 7.1
-// 	REQUIRE(first.size() == 6);
-// 	REQUIRE(first.front() == 1.4);
-// 	REQUIRE(first.back() == 7.1);
-// 	it = first.begin();
-// 	double* ptr2 = &(*it);
-// 	REQUIRE(ptr == ptr2);
-// 	std::advance(it, 4);
-// 	REQUIRE(*it == 3.7);
-// 	// (second is now empty)
-// 	REQUIRE(second.empty() == true);
+	first.merge(second);
+	// first contains: 1.4 2.2 2.9 3.1 3.7 7.1
+	REQUIRE(first.size() == 6);
+	REQUIRE(first.front() == 1.4);
+	REQUIRE(first.back() == 7.1);
+	it = first.begin();
+	double* ptr2 = &(*it);
+	REQUIRE(ptr == ptr2);
+	std::advance(it, 4);
+	REQUIRE(*it == 3.7);
+	// (second is now empty)
+	REQUIRE(second.empty() == true);
 
-// 	second.push_back (2.1);
+	second.push_back (2.1);
 
-// 	first.merge(second,mycomparison);
-// 	// first contains: 1.4 2.2 2.9 2.1 3.1 3.7 7.1
-// 	REQUIRE(first.size() == 7);
-// 	REQUIRE(first.front() == 1.4);
-// 	REQUIRE(first.back() == 7.1);
-// 	it = first.begin();
-// 	std::advance(it, 3);
-// 	REQUIRE(*it == 2.1);
-// 	// (second is now empty)
-// 	REQUIRE(second.empty() == true);
-// }
+	first.merge(second,mycomparison);
+	// first contains: 1.4 2.2 2.9 2.1 3.1 3.7 7.1
+	REQUIRE(first.size() == 7);
+	REQUIRE(first.front() == 1.4);
+	REQUIRE(first.back() == 7.1);
+	it = first.begin();
+	std::advance(it, 3);
+	REQUIRE(*it == 2.1);
+	// (second is now empty)
+	REQUIRE(second.empty() == true);
+}
 
 // TEST_CASE("List: Reverse", "[List]") {
 // 	ft::list<int> mylist;

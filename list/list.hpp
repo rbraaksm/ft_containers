@@ -3,6 +3,7 @@
 
 # include "listNode.hpp"
 # include "BidirectionalIterator.hpp"
+# include "Traits.hpp"
 // # include <cstddef>
 // # include <cstdlib>
 # include <memory>
@@ -117,16 +118,23 @@ namespace ft{
 		const_reference back() const{return (_tail->_prev->_data);}
 
 		// Modifiers
-// 		// template <class InputIterator>
-//   		// void assign (InputIterator first, InputIterator last);
+		template<class InputIterator>
+		void assign(InputIterator first, InputIterator last,
+				typename ft::check_type<typename ft::iterator_traits<InputIterator>::iterator_category>::type* = 0) {
+			clear();
+			while (first != last) {
+				push_back(*first);
+				first++;
+			}
+		}
 
-		void assign (size_type n, const value_type& val){
+		void assign(size_type n, const value_type& val){
 			clear();
 			for (; n > 0; n--)
 				push_back(val);
 		}
 
-		void push_front (const value_type& val){
+		void push_front(const value_type& val){
 			Node<value_type> *node = new Node<value_type>(val);
 			_head->_next->_prev = node;
 			_head->_next = node;
@@ -183,8 +191,14 @@ namespace ft{
 			node->_prev->_next = node->_next;
 			node->_next->_prev = node->_prev;
 			delete node;
-			_size--;
-			return (position);
+			--_size;
+			return (++position);
+		}
+
+		iterator erase(iterator first, iterator last){
+			while (first != last)
+				first = erase(first);
+			return (first);
 		}
 
 		void clear(){
@@ -192,11 +206,132 @@ namespace ft{
 				pop_back();
 		}
 
+		void swap(list& x){
+			Node<value_type>*	head = _head;
+			Node<value_type>*	tail = _tail;
+			size_type			size = _size;
+			allocator_type		alloc = _allocator;
+			_head = x._head;
+			_tail = x._tail;
+			_size = x._size;
+			_allocator = x._allocator;
+			x._head = head;
+			x._tail = tail;
+			x._size = size;
+			x._allocator = alloc;
+		}
+
+		void resize(size_type n, value_type val = value_type()){
+			while (n < _size)
+				pop_back();
+			while (n > _size)
+				push_back(val);
+		}
+
+		// Operations
+		void splice(iterator position, list& x){
+			splice(position, x, x.begin(), x.end());
+		}
+
+		void splice(iterator position, list& x, iterator i){
+			Node<value_type>* node = i.getPtr();
+			Node<value_type>* tmp = position.getPtr();
+			node->_prev->_next = node->_next;
+			node->_next->_prev = node->_prev;
+			--x._size;
+
+			tmp->_prev->_next = node;
+			node->_next = tmp;
+			node->_prev = tmp->_prev;
+			tmp->_prev = node;
+			++_size;
+		}
+
+		void splice(iterator position, list& x, iterator first, iterator last){
+			for(; first != last; splice(position, x, first++)){}
+		}
+
+		void remove(const value_type& val){
+			for (iterator it = begin(); it != end(); ++it)
+				if (*it == val)
+					erase(it);
+		}
+
+		template <class Predicate>
+  		void remove_if(Predicate pred){
+			for (iterator it = begin(); it != end(); ++it)
+				if (pred(*it))
+					erase(it);
+		  }
+
+		void unique(){
+			for(iterator it = begin(); it != end(); ++it)
+				while (*it == it.getPtr()->_next->_data){
+					erase(it);
+					--it;}
+		}
+
+		template <class BinaryPredicate>
+  		void unique(BinaryPredicate binary_pred){
+			for(iterator it = begin(); it != end(); ++it)
+				while (binary_pred(*it, it.getPtr()->_next->_data)){
+					erase(it);
+					--it;}
+  		}
+
+		void merge(list& x){
+			if (&x == this)
+				return ;
+			iterator ix = x.begin();
+			iterator it = begin();
+			for(; it != end(); ++it){
+				while (*it > *ix){
+					splice(it, x, ix);
+					ix = x.begin();}
+			}
+			if (x._size)
+				splice(end(), x);
+		}
+
+		template <class Compare>
+  		void merge (list& x, Compare comp){
+			if (&x == this)
+				return ;
+			iterator ix;
+			iterator it = begin();
+			for(; x._size && it != end(); ++it){
+				ix = x.begin();
+				if (comp(*ix, *it))
+					splice(it, x, ix);
+			}
+			if (x._size)
+				splice(end(), x);
+  		}
+
+		void sort(){
+			for(iterator it = begin(); it != end();){
+				if (*it < it.getPtr()->_prev->_data){
+					swap(it.getPtr(), it.getPtr()->_prev);
+					it = begin();
+				}
+				++it;
+			}
+		}
+
 		private:
+			void swap(node_pointer second, node_pointer first){
+				first->_prev->_next = second;
+				second->_next->_prev = first;
+				second->_prev = first->_prev;
+				first->_next = second->_next;
+				second->_next = first;
+				first->_prev = second;
+			}
 			node_pointer	_head;
 			node_pointer	_tail;
 			size_type		_size;
 			allocator_type	_allocator;
+
 
 	public:
 	// template<class InputIterator>
@@ -208,141 +343,37 @@ namespace ft{
 	// 	}
 	// }
 
-	// iterator erase(iterator position) {
-	// 	Node<value_type>* node = position.getPtr();
-	// 	node->_prev->_next = node->_next;
-	// 	node->_next->_prev = node->_prev;
-	// 	position++;
-	// 	delete node;
-	// 	_size--;
-	// 	return position;
+	// Operations:
+
+
+	// void unique() {
+	// 	iterator it = this->begin();
+	// 	it++;
+	// 	while (it != this->end()) {
+	// 		if (*it == it.getPtr()->_prev->_data) {
+	// 			it = erase(it);
+	// 		} else {
+	// 			++it;
+	// 		}
+	// 	}
 	// }
 
-	iterator erase(iterator first, iterator last) {
-		while (first != last) {
-			first = erase(first);
-		}
-		return first;
-	}
+	// template <class BinaryPredicate>
+	// void unique (BinaryPredicate binary_pred) {
+	// 	iterator it = this->begin();
+	// 	it++;
+	// 	while (it != this->end()) {
+	// 		if (binary_pred(*it, it.getPtr()->_prev->_data)) {
+	// 			it = erase(it);
+	// 		} else {
+	// 			++it;
+	// 		}
+	// 	}
+	// }
 
-	void swap(list& x) {
-		iterator headX = --x.begin();
-		iterator tailX = x.end();
-		node_pointer tmp;
-		int sizeTmp;
-
-		tmp = _head->_next;
-		_head->_next = headX.getPtr()->_next;
-		_head->_next->_prev = _head;
-		headX.getPtr()->_next = tmp;
-		headX.getPtr()->_next->_prev = headX.getPtr();
-		tmp = _tail->_prev;
-		_tail->_prev = tailX.getPtr()->_prev;
-		_tail->_prev->_next = _tail;
-		tailX.getPtr()->_prev = tmp;
-		tailX.getPtr()->_prev->_next = tailX.getPtr();
-		sizeTmp = size();
-		_size = x.size();
-		x._size = sizeTmp;
-	}
-
-	void resize(size_type n, value_type val = value_type()) {
-		while (_size > n) {
-			pop_back();
-		}
-		while (_size < n) {
-			push_back(val);
-		}
-	}
-
-	// Operations:
-	void splice (iterator position, list& x, iterator i) {
-		Node<value_type>* node = i.getPtr();
-		node->_prev->_next = node->_next;
-		node->_next->_prev = node->_prev;
-		x._size--;
-		Node<value_type>* ptr = position.getPtr();
-		node->_prev = ptr->_prev;
-		ptr->_prev->_next = node;
-		node->_next = ptr;
-		ptr->_prev = node;
-		this->_size++;
-	}
-
-	void splice (iterator position, list& x) {
-		iterator it = x.begin();
-		iterator itNext;
-		while (it != x.end()) {
-			itNext = it;
-			itNext++;
-			splice(position, x, it);
-			it = itNext;
-		}
-	}
-
-	void splice (iterator position, list& x, iterator first, iterator last) {
-		iterator itNext;
-		while (first != last) {
-			itNext = first;
-			itNext++;
-			splice(position, x, first);
-			first = itNext;
-		}
-	}
-
-	void remove (const value_type& val) {
-		iterator it = this->begin();
-		while (it != this->end()) {
-			if (*it == val) {
-				it = erase(it);
-			}
-			else {
-				it++; // Because erase also jumps to the next element
-			}
-		}
-	}
-
-	template <class Predicate>
-	void remove_if (Predicate pred) {
-		iterator it = this->begin();
-		while (it != this->end()) {
-			if (pred(*it)) {
-				it = erase(it);
-			}
-			else {
-				it++; // Because erase also jumps to the next element
-			}
-		}
-	}
-
-	void unique() {
-		iterator it = this->begin();
-		it++;
-		while (it != this->end()) {
-			if (*it == it.getPtr()->_prev->_data) {
-				it = erase(it);
-			} else {
-				++it;
-			}
-		}
-	}
-
-	template <class BinaryPredicate>
-	void unique (BinaryPredicate binary_pred) {
-		iterator it = this->begin();
-		it++;
-		while (it != this->end()) {
-			if (binary_pred(*it, it.getPtr()->_prev->_data)) {
-				it = erase(it);
-			} else {
-				++it;
-			}
-		}
-	}
-
-	void merge (list& x) {
-		merge(x, std::less<value_type>());
-	}
+	// void merge (list& x) {
+	// 	merge(x, std::less<value_type>());
+	// }
 
 	// template <class Compare>
 	// void merge (list& x, Compare comp) {
@@ -361,17 +392,17 @@ namespace ft{
 	// 	}
 	// }
 
-	void sort() {
-		iterator it = this->begin();
-		it++;
-		while (it != this->end()) {
-			if (*it < it.getPtr()->_prev->_data) {
-				swap(it.getPtr(), it.getPtr()->_prev);
-				it = this->begin();
-			}
-			it++;
-		}
-	}
+	// void sort() {
+	// 	iterator it = this->begin();
+	// 	it++;
+	// 	while (it != this->end()) {
+	// 		if (*it < it.getPtr()->_prev->_data) {
+	// 			swap(it.getPtr(), it.getPtr()->_prev);
+	// 			it = this->begin();
+	// 		}
+	// 		it++;
+	// 	}
+	// }
 
 	template <class Compare>
 	void sort(Compare comp) {
@@ -401,14 +432,14 @@ namespace ft{
 	// }
 
 // private:
-// 	void swap(node_pointer second, node_pointer first) {
-// 		first->_prev->_next = second;
-// 		second->_next->_prev = first;
-// 		second->_prev = first->_prev;
-// 		first->_next = second->_next;
-// 		second->_next = first;
-// 		first->_prev = second;
-// 	}
+	// void swap(node_pointer second, node_pointer first) {
+	// 	first->_prev->_next = second;
+	// 	second->_next->_prev = first;
+	// 	second->_prev = first->_prev;
+	// 	first->_next = second->_next;
+	// 	second->_next = first;
+	// 	first->_prev = second;
+	// }
 // 	node_pointer _head;
 // 	node_pointer _tail;
 // 	size_type _size;

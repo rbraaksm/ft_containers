@@ -42,12 +42,12 @@ namespace ft{
 		// Overload postfix --
 		bidirectionalIterator	operator--(int) {
 			bidirectionalIterator	ret(*this);
-			_ptr = _ptr->getPrevious();
+			_ptr = _ptr->getPrev();
 			return ret;
 		}
 
 		// Overload prefix --
-		bidirectionalIterator&	operator--() {_ptr = _ptr->getPrevious();return *this;}
+		bidirectionalIterator&	operator--() {_ptr = _ptr->getPrev();return *this;}
 		reference	operator*() {return _ptr->_data;}
 		pointer	operator->() {return &this->_ptr->_data;}
 

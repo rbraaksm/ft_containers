@@ -25,6 +25,8 @@
 		"list": "cpp",
 		"locale": "cpp",
 		"random": "cpp",
-		"regex": "cpp"
+		"regex": "cpp",
+		"iostream": "cpp",
+		"ostream": "cpp"
 	}
 }
