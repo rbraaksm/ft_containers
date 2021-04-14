@@ -12,22 +12,35 @@ struct is_odd {
 	{ return ( int(first)<int(second) ); }
 
 int	main(void){
-	ft::list<double>::iterator it;
-	ft::list<double> first, second;
+	// ft::list<double>::iterator it;
+	// ft::list<double> first, second;
 
 
-	first.push_back (3.1);
-	first.push_back (2.2);
-	first.push_back (2.9);
-	std::cout << "List:";
-	for (it=first.begin(); it!=first.end(); ++it)
+	// first.push_back (3.1);
+	// first.push_back (2.2);
+	// first.push_back (2.9);
+	// first.push_back (4.2);
+	// first.push_back (4.2);
+	// std::cout << "List:";
+	ft::list<int> myList;
+	myList.push_back(1);
+	myList.push_front(2);
+	myList.push_front(26);
+	ft::list<int>::iterator it = myList.begin();
+
+	for (it=myList.begin(); it!=myList.end(); ++it)
 	    std::cout << ' ' << *it;
 	std::cout << "\n";
-	first.sort();
-	std::cout << "List:";
-	for (it=first.begin(); it!=first.end(); ++it)
-	    std::cout << ' ' << *it;
-	std::cout << "\n";
+	// myList.sort();
+	// std::cout << "List:";
+	// for (it=myList.begin(); it!=myList.end(); ++it)
+	//     std::cout << ' ' << *it;
+	// std::cout << "\n";
+	// myList.reverse();
+	// std::cout << "List:";
+	// for (it=myList.begin(); it!=myList.end(); ++it)
+	//     std::cout << ' ' << *it;
+	// std::cout << "\n";
 
 	// second.push_back (1.7);
 	// second.push_back (7.1);
