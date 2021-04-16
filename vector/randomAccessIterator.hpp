@@ -4,7 +4,6 @@
 #include <algorithm>
 
 namespace ft {
-
 	template<typename T, class Category = std::random_access_iterator_tag>
 	class randomAccessIterator {
 		public:
@@ -21,8 +20,8 @@ namespace ft {
 
 		public:
 			randomAccessIterator() : _ptr(NULL) {}
-			explicit randomAccessIterator(pointer node) : _ptr(node) {}
-			randomAccessIterator(const randomAccessIterator& obj) {*this = obj;}
+			randomAccessIterator(pointer node) : _ptr(node) {}
+			randomAccessIterator(const type& obj) {*this = obj;}
 			virtual ~randomAccessIterator() {}
 
 			randomAccessIterator& operator=(const randomAccessIterator& obj) {
@@ -129,7 +128,7 @@ namespace ft {
 
 		virtual ~constRandomAccessIterator() {}
 
-		const_reference operator*() {return (*this)->_ptr;}
+		const_reference operator*() {return (*this->_ptr);}
 		const_pointer operator->() {return *(&(this->_ptr));}
 		const_reference	operator[](difference_type n) {return (*(this->_ptr + n));}
 	};

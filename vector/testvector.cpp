@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/28 13:30:18 by sam           #+#    #+#                 */
-/*   Updated: 2021/04/14 15:12:02 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2021/04/16 16:14:18 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,27 +150,28 @@
 // }
 
 TEST_CASE("Vector: Constructors", "[Vector]") {
+
 	// constructors used in the same order as described above:
 	ft::vector<int> first;                                // empty vector of ints
 	REQUIRE(first.capacity() == 0);
 	ft::vector<int> second(5, 100);                // four ints with value 100
 	REQUIRE(second.capacity() == 5);
-	// ft::vector<int> third(second.begin(), second.end());  // iterating through second
-	// REQUIRE(third.capacity() == 5);
-	// ft::vector<int> fourth(third);                       // a copy of third
-	// REQUIRE(fourth.capacity() == 5);
+	ft::vector<int> third(second.begin(), second.end());  // iterating through second
+	REQUIRE(third.capacity() == 5);
+	ft::vector<int> fourth(third);                       // a copy of third
+	REQUIRE(fourth.capacity() == 5);
 
-	// // the iterator constructor can also be used to construct from arrays:
-	// int myints[] = {16, 2, 77, 29, 66};
-	// ft::vector<int> fifth(myints, myints + sizeof(myints) / sizeof(int));
-	// REQUIRE(fifth.capacity() == 5);
-	// REQUIRE(fifth.front() == 16);
-	// REQUIRE(fifth.back() == 66);
+	// the iterator constructor can also be used to construct from arrays:
+	int myints[] = {16, 2, 77, 29, 66};
+	ft::vector<int> fifth(myints, myints + sizeof(myints) / sizeof(int));
+	REQUIRE(fifth.capacity() == 5);
+	REQUIRE(fifth.front() == 16);
+	REQUIRE(fifth.back() == 66);
 
-	// ft::vector<int> sixt = fifth;
-	// REQUIRE(sixt.capacity() == 5);
-	// REQUIRE(sixt.front() == 16);
-	// REQUIRE(sixt.back() == 66);
+	ft::vector<int> sixt = fifth;
+	REQUIRE(sixt.capacity() == 5);
+	REQUIRE(sixt.front() == 16);
+	REQUIRE(sixt.back() == 66);
 }
 
 // TEST_CASE("Vector: Resize", "[Vector]") {
