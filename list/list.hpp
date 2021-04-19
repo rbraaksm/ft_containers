@@ -3,10 +3,8 @@
 
 # include "listNode.hpp"
 # include "BidirectionalIterator.hpp"
-# include "Traits.hpp"
+# include "../Traits.hpp"
 # include <memory>
-# include <iterator>
-# include <algorithm>
 
 // https://www.cplusplus.com/reference/list/list/
 
@@ -66,8 +64,7 @@ namespace ft{
 		}
 
 		template <class InputIterator>
-  		list(InputIterator first, InputIterator last,
-		  const allocator_type& alloc = allocator_type()) : _allocator(alloc){
+  		list(InputIterator first, InputIterator last, const allocator_type& alloc = allocator_type()) : _allocator(alloc){
 			_head = new Node<value_type>();
 			_tail = new Node<value_type>();
 			_head->_next = _tail;
@@ -121,7 +118,7 @@ namespace ft{
 		}
 
 		size_type size() const{return (_size);}
-		size_type max_size() const{return (this->_allocator.max_size());}
+		size_type max_size() const{return (_allocator.max_size());}
 
 		// Element access
 		reference front(){return (_head->_next->_data);}
@@ -134,10 +131,8 @@ namespace ft{
 		void assign(InputIterator first, InputIterator last,
 				typename ft::check_type<typename ft::iterator_traits<InputIterator>::iterator_category>::type* = 0) {
 			clear();
-			while (first != last) {
+			for (; first != last; ++first)
 				push_back(*first);
-				first++;
-			}
 		}
 
 		void assign(size_type n, const value_type& val){

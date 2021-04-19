@@ -52,27 +52,22 @@ namespace ft{
 				_array[i] = val;
 		}
 
-        vector(iterator first, iterator last, const allocator_type& alloc = allocator_type())
-				: _allocator(alloc){
-			size_type x = 0;
-			for (iterator it = first; it != last; ++it)
-				++x;
+		template <class InputIterator>
+		vector(InputIterator first, InputIterator last, const allocator_type& alloc = allocator_type(),
+			typename ft::check_type<typename ft::iterator_traits<InputIterator>::iterator_category>::type* = 0): _allocator(alloc) {
+			_capacity = last - first;
 			_size = 0;
-			_capacity = x;
 			_array = new value_type[_capacity];
-			assign(first, last);
-		}
+			assign(first, last);}
 
-		vector(const ft::vector<T>& x){
+		vector(const vector& x){
 			_size = 0;
 			_capacity = 0;
 			*this = x;
 		}
 
 		// Destructor
-		virtual ~vector(){
-			delete[] _array;
-		}
+		virtual ~vector(){delete[] _array;}
 
 		// Assignment operator
 		vector&	operator=(const vector& x){
@@ -111,8 +106,8 @@ namespace ft{
 
 		bool empty()const{
 			if (_size)
-				return (true);
-			return (false);
+				return (false);
+			return (true);
 		}
 
 		void reserve(size_type n){
