@@ -1,4 +1,5 @@
 #include "map.hpp"
+
 #include <map>
 
 	bool fncomp (char lhs, char rhs) {return lhs<rhs;}
@@ -9,15 +10,15 @@ struct classcomp {
 };
 
 int	main(void){
-	ft::map<char,int> second;
 	ft::map<char,int> first;
+	// ft::map<char,int> first;
 
 	first['a']=10;
-	// first['b']=30;
-	// first['c']=50;
+	first['b']=30;
+	first['c']=50;
 	// first['d']=70;
 
-
+	// first.print_tree();
 
 //   std::map<char,int> first;
 
