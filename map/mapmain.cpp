@@ -9,12 +9,13 @@ struct classcomp {
 };
 
 int	main(void){
+	ft::map<char,int> second;
 	ft::map<char,int> first;
 
 	first['a']=10;
-	first['b']=30;
-	first['c']=50;
-	first['d']=70;
+	// first['b']=30;
+	// first['c']=50;
+	// first['d']=70;
 
 
 

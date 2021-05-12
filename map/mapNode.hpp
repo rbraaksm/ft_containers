@@ -21,18 +21,38 @@ namespace ft{
 			// bool 	_nil;
 
 			explicit mapNode(value_type const& val = value_type()): _parent(NULL), _left(NULL), _right(NULL), _data(val) {}
-			mapNode(const mapNode<T>& x) : _data(x._data), _parent(x._parent), _left(x._left), _right(x._right){}
+			mapNode(const mapNode<T>& x) : _parent(x._parent), _left(x._left), _right(x._right), _data(x._data){}
 			virtual ~mapNode() {};
 			mapNode& operator=(const mapNode& obj) {
 				if (this != &obj) {
-					_data = obj._data;
+					_parent = obj._parent;
 					_left = obj._left;
 					_right = obj._right;
-					_parent = obj._parent;
+					_data = obj._data;
 					// _isBlack = obj._isBlack;
 					// _nil = obj._nil;
 				}
-				return *this;
+				return (*this);
+			}
+
+			mapNode*	getNext() {
+				mapNode* next = this;
+
+				if (next->_right)
+				{
+					next = next->_right;
+					while (next->_left)
+						next = next->_left;
+				}
+				else if (next == next->_parent->_left)
+					next = next->_parent;
+				else if (next == next->_parent->_right)
+				{
+					while (next != next->_parent->_left)
+						next = next->_parent;
+					next = next->_parent;
+				}
+				return next;
 			}
 	};
 }

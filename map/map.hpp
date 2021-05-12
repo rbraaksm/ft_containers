@@ -37,7 +37,7 @@ namespace ft{
 			friend class map;
 			protected:
 				Compare comp;
-				explicit value_compare (Compare c) : comp(c) {}  // constructed with map's comparison object
+				explicit value_compare(Compare c) : comp(c) {}
 			public:
 				typedef bool result_type;
 				typedef value_type first_argument_type;
@@ -46,9 +46,9 @@ namespace ft{
 			};
 
 			private:
-				node_pointer*	_root;
-				node_pointer*	_top;
-				node_pointer*	_bottom;
+				node_pointer	_root;
+				node_pointer	_top;
+				node_pointer	_bottom;
 				Compare			_comp;
 				size_t			_size;
 				Alloc			_alloc;
@@ -57,14 +57,14 @@ namespace ft{
 			// member functions //
 			// Constructors
 				explicit map(const key_compare& comp = key_compare(), const allocator_type& alloc = allocator_type()) :
-					_root(), _top(new node_pointer()), _bottom(new node_pointer()), _comp(comp), _size(0), _alloc(alloc){
-						// _bottom->_parent = _top;
-						// _top->_parent = _bottom;
+					_root(), _top(new node), _bottom(new node), _comp(comp), _size(0), _alloc(alloc){
+						_bottom->_parent = _top;
+						_top->_parent = _bottom;
 					}
 
 				template <class InputIterator>
 				map(InputIterator first, InputIterator last, const key_compare& comp = key_compare(), const allocator_type& alloc = allocator_type()) :
-					_root(), _top(new node_pointer()), _bottom(new node_pointer()), _comp(comp), _size(0), _alloc(alloc){
+					_root(), _top(new node), _bottom(new node), _comp(comp), _size(0), _alloc(alloc){
 						_bottom->_parent = _top;
 						_top->_parent = _bottom;
 						// insert(first, last);
@@ -72,7 +72,7 @@ namespace ft{
 						(void)last;
 					}
 
-				map(const map& x) : _root(), _top(new node_pointer()), _bottom(new node_pointer()){
+				map(const map& x) : _root(), _top(new node), _bottom(new node){
 					_bottom->_parent = _top;
 					_top->_parent = _bottom;
 					*this = x;
@@ -115,14 +115,62 @@ namespace ft{
 
 				size_type size() const{return (_size);}
 				size_type max_size() const{return (_alloc.max_size());}
-				mapped_type& operator[](const key_type& k){ return ((*((insert(make_pair(k,mapped_type()))).first)).second);}
+				mapped_type& operator[](const key_type& k){
+					return ((*((insert(std::make_pair(k,mapped_type()))).first)).second);
+					}
 
 				// Modifiers
 				// pair<iterator,bool> insert(const value_type& val){
 
 				// }
-				std::pair<iterator,bool> insert (const value_type& val) {
-					return (std::inserter(val));}
+				std::pair<iterator,bool> insert(const value_type& val){
+					node_pointer tmp = new node(val);
+					if (empty())
+						return (set_root(tmp));
+					return (leaf(tmp));
+					}
+
+				iterator find(const key_type& k){
+					for (iterator it = begin(); it != end(); ++it)
+						if (it->first == k)
+							return (it);
+					return (end());
+				}
+
+				const_iterator find(const key_type& k) const{
+					for (iterator it = begin(); it != end(); ++it)
+						if (it->first == k)
+							return (it);
+					return (end());
+				}
+
+				key_compare key_comp() const{return (comp);}
+
+			private:
+				std::pair<iterator,bool> set_root(const node_pointer tmp){
+					_root = tmp;
+					_bottom->_parent = _root;
+					_top->_parent = _root;
+					_bottom->_parent->_left = _bottom;
+					_top->_parent->_right = _top;
+					++_size;
+					return (std::make_pair(iterator(_root), true));
+				}
+
+				std::pair<iterator,bool> leaf(const node_pointer tmp){
+					iterator it;
+					if ((it = find(tmp->_data.first)) != end()){
+						delete tmp;
+						return (std::make_pair(iterator(it), false));
+					}
+					node_pointer current = _root;
+					node_pointer parent = NULL;
+					while (current && current != _bottom && current != _top){
+						if (_comp(it.))
+
+					}
+					return (std::make_pair(iterator(it), true));
+				}
 		   };
 }
 #endif
