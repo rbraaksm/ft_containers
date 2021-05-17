@@ -10,15 +10,20 @@ struct classcomp {
 };
 
 int	main(void){
-	ft::map<char,int> first;
+	ft::map<int,int> first;
 	// ft::map<char,int> first;
 
-	first['a']=10;
-	first['b']=30;
-	first['c']=50;
-	// first['d']=70;
+	first[10]=10;
+	first[5]=30;
+	first[2]=30;
+	first[16]=50;
+	first[14]=30;
+	first[18]=20;
+	first[15]=70;
+	first[17]=70;
 
-	// first.print_tree();
+	first.insert(ft::pair<char,int>(9, 30));
+	first.print_tree();
 
 //   std::map<char,int> first;
 

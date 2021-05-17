@@ -3,7 +3,7 @@
 
 # include <iostream>
 # include "mapNode.hpp"
-# include "Pair.hpp"
+# include "ft_Pair.hpp"
 # include "../list/BidirectionalIterator.hpp"
 # include "../Traits.hpp"
 
@@ -20,7 +20,7 @@ namespace ft{
 		// member types //
 			typedef Key										key_type;
 			typedef T										mapped_type;
-			typedef std::pair<const key_type,mapped_type>	value_type;
+			typedef ft::pair<const key_type,mapped_type>	value_type;
 			typedef Compare									key_compare;
 			typedef Alloc									allocator_type;
 			typedef T&										reference;
@@ -64,19 +64,31 @@ namespace ft{
 			// Constructors
 				explicit map(const key_compare& comp = key_compare(), const allocator_type& alloc = allocator_type()) :
 					_root(), _top(new node), _bottom(new node), _comp(comp), _size(0), _alloc(alloc){
-						_bottom->_parent = _top;
-						_top->_parent = _bottom;
-					}
+					// _bottom->_parent = _root;
+					// _top->_parent = _root;
+					// _root->_left = _bottom;
+					// _root->_right = _top;
+					_bottom->_parent = _top;
+					_top->_parent = _bottom;
+				}
 
 				template <class InputIterator>
 				map(InputIterator first, InputIterator last, const key_compare& comp = key_compare(), const allocator_type& alloc = allocator_type()) :
 					_root(), _top(new node), _bottom(new node), _comp(comp), _size(0), _alloc(alloc){
-						_bottom->_parent = _top;
-						_top->_parent = _bottom;
-						insert(first, last);
-					}
+					// _bottom->_parent = _root;
+					// _top->_parent = _root;
+					// _root->_left = _bottom;
+					// _root->_right = _top;
+					_bottom->_parent = _top;
+					_top->_parent = _bottom;
+					insert(first, last);
+				}
 
 				map(const map& x) : _root(), _top(new node), _bottom(new node){
+					// _bottom->_parent = _root;
+					// _top->_parent = _root;
+					// _root->_left = _bottom;
+					// _root->_right = _top;
 					_bottom->_parent = _top;
 					_top->_parent = _bottom;
 					*this = x;
@@ -119,35 +131,30 @@ namespace ft{
 
 				size_type size() const{return (_size);}
 				size_type max_size() const{return (_alloc.max_size());}
-				mapped_type& operator[](const key_type& k){
-					return ((*((insert(std::make_pair(k,mapped_type()))).first)).second);
-					}
+				// mapped_type& operator[](const key_type& k){
+				// 	return ((*((insert(ft::make_pair(k,mapped_type()))).first)).second);
+				// 	}
+
+				mapped_type& operator[] (const key_type& k)
+				{
+					if (findNode(_root, k) == NULL)
+						return ((*((insert(ft::make_pair(k,mapped_type()))).first)).second);
+					return (findNode(_root, k)->_data.second);
+				}
 
 				// Modifiers
-				// ft::pair<iterator,bool>	insert(const value_type& val){
-				// 	node_pointer tmp = new node(val);
-				// 	if (empty())
-				// 		return (set_root(tmp));
-				// 	return (leaf(tmp));
-				// 	}
-				ft::pair<iterator,bool>		insert(const pair& pr) {
-				iterator it = find(pr.first);
-
-				if (it != end())
-					return ft::make_pair(iterator(it), false);
-				node_pointer* newNode = new node(pr);
-				insertNode(newNode);
-				++_size;
-				// if (_size % 3 == 0)
-				// 	balance(Key());
-				return ft::make_pair(iterator(newNode), true);
-			}
+				ft::pair<iterator,bool> insert(const value_type& val){
+					node_pointer tmp = new node(val);
+					if (empty())
+						return (set_root(tmp));
+					return (leaf(tmp));
+				}
 
 				iterator	insert(iterator position, const pair& val){
 				if (position->first == val.first)
-					return position;
+					return (position);
 				else
-					return insert(val).first;
+					return (insert(val).first);
 				}
 
 				template <class InputIterator>
@@ -156,104 +163,149 @@ namespace ft{
 					  	insert(++first);
 				  }
 
-
-
-
 				iterator find(const key_type& k){
-					iterator x = end();
-					std::cout << "\n\nINSERT\n";
-					int i = 0;
-					for (iterator it = begin(); it != end(); ++it){
-						if (it->first == k)
-							return (it);
-						std::cout << "first: " << i << "\n";
-							i++;
-						std::cout << "secon: " << i << "\n";
-					}
-					return (end());
+					node*	return_node = findNode(_root, k);
+					if (return_node)
+						return (iterator(return_node));
+					else
+						return (end());
 				}
 
 				const_iterator find(const key_type& k) const{
-					for (iterator it = begin(); it != end(); ++it)
-						if (it->first == k)
-							return (it);
-					return (end());
+					node*	return_node = findNode(_root, k);
+					if (return_node)
+						return (const_iterator(return_node));
+					else
+						return (end());
 				}
 
 				// key_compare key_comp() const{return (comp);}
 
-void				print_node(std::string root_path)
-	{
-		node_pointer tmp = _root;
+				void				print_node(std::string root_path)
+					{
+						node_pointer tmp = _root;
 
-		std::cout << ".";
-		for (int i = 0; root_path[i]; ++i){
-			if (root_path[i] == 'L'){
-				if (tmp->_left == NULL)
-					return ;
-				tmp = tmp->_left;
-			}
-			if (root_path[i] == 'R'){
-				if (tmp->_right == NULL)
-					return ;
-				tmp = tmp->_right;
-			}
-		}
-		if (tmp->_data.first){
-			// if (tmp->color)
-			// 	std::cout << CRED << tmp->_data.first << CRESET;
-			// else 
-				std::cout << CYELLOW << tmp->_data.first << CRESET;
-		}
-	}
+						std::cout << ".";
+						for (int i = 0; root_path[i]; ++i){
+							if (root_path[i] == 'L'){
+								if (tmp->_left == NULL)
+									return ;
+								tmp = tmp->_left;
+							}
+							if (root_path[i] == 'R'){
+								if (tmp->_right == NULL)
+									return ;
+								tmp = tmp->_right;
+							}
+						}
+						if (tmp->_data.first){
+								std::cout << CYELLOW << tmp->_data.first << CRESET;
+						}
+					}
 
-//   public: //Comment this in to make the print_tree work.
-	void				print_tree()
-	{
-		std::string root_path;
-		int layer = 0;
-		root_path = "";
-		int starting_tabs = 16;
-		int starting_gap = 16;
-		while (layer < 5)
-		{
-			root_path.clear();
-			int tmp_tabs = starting_tabs;
-			int tmp_gap = starting_gap;
-			for (int tmp_layer = layer; tmp_layer; --tmp_layer)
-			{
-				root_path.append("L");
-				tmp_gap = tmp_gap / 2;
-				tmp_tabs -= tmp_gap;
-			}
-			while (root_path.find('L') != std::string::npos){
-				if (root_path.find('R') == std::string::npos)
-					for (; tmp_tabs; --tmp_tabs)
-						std::cout << "   ";
-				else 
-					for (int tmp_gap2 = tmp_gap * 2; tmp_gap2; --tmp_gap2)
-						std::cout << "   ";
-				print_node(root_path);
-				size_t L_found = root_path.find_last_of('L');
-				root_path[L_found] = 'R';
-				++L_found;
-				for (;L_found != root_path.size(); ++L_found){
-					root_path[L_found] = 'L';
+				void				print_tree()
+				{
+						std::string root_path;
+						int layer = 0;
+						root_path = "";
+						int starting_tabs = 16;
+						int starting_gap = 16;
+						while (layer < 5)
+						{
+							root_path.clear();
+							int tmp_tabs = starting_tabs;
+							int tmp_gap = starting_gap;
+							for (int tmp_layer = layer; tmp_layer; --tmp_layer)
+							{
+								root_path.append("L");
+								tmp_gap = tmp_gap / 2;
+								tmp_tabs -= tmp_gap;
+							}
+							while (root_path.find('L') != std::string::npos){
+								if (root_path.find('R') == std::string::npos)
+									for (; tmp_tabs; --tmp_tabs)
+										std::cout << "   ";
+								else 
+									for (int tmp_gap2 = tmp_gap * 2; tmp_gap2; --tmp_gap2)
+										std::cout << "   ";
+								print_node(root_path);
+								size_t L_found = root_path.find_last_of('L');
+								root_path[L_found] = 'R';
+								++L_found;
+								for (;L_found != root_path.size(); ++L_found){
+									root_path[L_found] = 'L';
+								}
+							}
+							if (root_path.find('R') == std::string::npos)
+								for (; tmp_tabs; --tmp_tabs)
+									std::cout << "   ";
+							else 
+								for (int tmp_gap2 = tmp_gap * 2; tmp_gap2; --tmp_gap2)
+									std::cout << "   ";
+							print_node(root_path);
+							std::cout << std::endl << std::endl << std::endl;
+							layer++;
+						}
 				}
-			}
-			if (root_path.find('R') == std::string::npos)
-				for (; tmp_tabs; --tmp_tabs)
-					std::cout << "   ";
-			else 
-				for (int tmp_gap2 = tmp_gap * 2; tmp_gap2; --tmp_gap2)
-					std::cout << "   ";
-			print_node(root_path);
-			std::cout << std::endl << std::endl << std::endl;
-			layer++;
-		}
-	}
+
 			private:
-				ft::pair<iterator,bool> set_root(const node_pointer tmp){
+				void	rightRotation(node* income)
+				{
+					node*	Y = income->_left;
+					
+					income->_left = Y->_right;
+					if (Y->_right)
+						Y->_right->_parent = income;
+
+					Y->_right = income;
+					Y->_parent = income->_parent;
+
+					if (income->_parent && income->_parent->_left == income)
+						income->_parent->_left = Y;
+					else if (income->_parent)
+						income->_parent->_right = Y;
+					
+					income->_parent = Y;
+
+					if (Y->_parent == NULL)
+						_root = Y;
+				}
+
+				void	leftRotation(node* income)
+				{
+					node*	Y = income->_right;
+					
+					income->_right = Y->_left;
+
+					if (Y->_left)
+						Y->_left->_parent = income;
+
+					Y->_left = income;
+					Y->_parent = income->_parent;
+
+					if (income->_parent && income->_parent->_left == income)
+						income->_parent->_left = Y;
+					else if (income->_parent)
+						income->_parent->_right = Y;
+					
+					income->_parent = Y;
+					if (Y->_parent == NULL)
+						_root = Y;
+				}
+
+				node*	findNode(node* income, const key_type& val){
+					if (income == NULL || income == _bottom || income == _top)
+						return (NULL);
+					if (income->_data.first == val)
+						return (income);
+					if (income->_data.first > val && income->_left && income->_left != _bottom)
+						return (findNode(income->_left, val));
+					if (income->_data.first < val && income->_right && income->_right != _top)
+						return (findNode(income->_right, val));
+					return (NULL);
+				}
+
+				ft::pair<iterator,bool> set_root(const node_pointer tmp) {
 					_root = tmp;
 					_bottom->_parent = _root;
 					_top->_parent = _root;
@@ -263,15 +315,42 @@ void				print_node(std::string root_path)
 					return (ft::make_pair(iterator(_root), true));
 				}
 
-				ft::pair<iterator,bool> leaf(const node_pointer tmp){
-					iterator it;
+				int		height(node *income, int h){
+					if (income == _root || income == _bottom || income == _top || income == NULL)
+						return (h);
+					int lx = height(income->_left, h + 1);
+					int rx = height(income->_right, h + 1);
+					if (lx > rx)
+						return (lx);
+					else
+						return (rx);
+				}
 
-
-					if ((it = find(tmp->_data.first)) != end()){
-						delete tmp;
-						return (ft::make_pair(iterator(tmp), false));
+				void	balance(node *income){
+					int	diff;
+					while (income)
+					{
+						diff = height(income->_left, 0) - height(income->_right, 0);
+						if (diff < -1 && (height(income->_right->_left, 0) - height(income->_right->_right, 0)) < 0)
+							leftRotation(income);
+						else if (diff < -1 && (height(income->_right->_left, 0) - height(income->_right->_right, 0)) >= 0){
+							rightRotation(income->_right);
+							leftRotation(income);
+						}
+						else if (diff > 1 && (height(income->_left->_left, 0) - height(income->_left->_right, 0)) > 0)
+							rightRotation(income);
+						else if (diff > 1 && (height(income->_left->_left, 0) - height(income->_left->_right, 0)) <= 0){
+							leftRotation(income->_left);
+							rightRotation(income);
+						}
+						income = income->_parent;
 					}
+				}
 
+				ft::pair<iterator,bool> leaf(const node_pointer tmp){
+					node* check = findNode(_root, tmp->_data.first);
+					if (check)
+						return ft::make_pair(iterator(check), false);
 					node_pointer current = _root;
 					node_pointer parent = NULL;
 
@@ -282,7 +361,6 @@ void				print_node(std::string root_path)
 						else
 							current = current->_right;
 					}
-
 					tmp->_parent = parent;
 					if (_comp(tmp->_data.first, parent->_data.first)){
 						if (parent->_left == _bottom){
@@ -292,62 +370,16 @@ void				print_node(std::string root_path)
 						parent->_left = tmp;
 					}
 					else{
-						if (parent->_left == _top){
+						if (parent->_right == _top){
 							tmp->_right = _top;
 							_top->_parent = tmp;
 						}
 						parent->_right = tmp;
 					}
 					++_size;
-				// if (_size % 3 == 0)
-				// 	balance(Key());
+					balance(tmp);
 					return (ft::make_pair(iterator(tmp), true));
 				}
-
-
-				void		insertNode(node_pointer* newNode) {
-				if (!_root)
-				{
-					_root = newNode;
-					_root->_left = _bottom;
-					_root->_right = _top;
-					_bottom->_parent = _top->_parent = _root;
-				}
-				else
-				{
-					node_pointer* tmp = _root;
-					node_pointer* parent = NULL;
-
-					while (tmp && tmp != _bottom && tmp != _top)
-					{
-						parent = tmp;
-						if (_comp(newNode->_data.first, tmp->_data.first))
-							tmp = tmp->_left;
-						else
-							tmp = tmp->_right;
-					}
-					newNode->_parent = parent;
-					if (_comp(newNode->_data.first, parent->_data.first))
-					{
-						if (parent->_left == _bottom) 
-						{
-							newNode->_left = _bottom;
-							_bottom->_parent = newNode;
-						}
-						parent->_left = newNode;
-					}
-					else
-					{
-						if (parent->_right == _top)
-						{
-							newNode->_right = _top;
-							_top->_parent = newNode;
-						}
-						parent->_right = newNode;
-					}
-				}
-			}
-
 		   };
 }
 #endif

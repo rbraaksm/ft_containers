@@ -6,12 +6,12 @@
 #    By: renebraaksma <renebraaksma@student.42.f      +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/10/02 15:16:50 by sam           #+#    #+#                  #
-#    Updated: 2021/04/14 11:36:41 by rbraaksm      ########   odam.nl          #
+#    Updated: 2021/05/17 09:52:18 by rbraaksm      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = ft_containers_tests
-FILES = catchMain testlist
+FILES = ../catchMain testlist
 SRCS = $(addsuffix .cpp, $(FILES))
 OBJS = $(SRCS:.cpp=.o)
 

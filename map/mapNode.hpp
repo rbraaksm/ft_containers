@@ -17,9 +17,9 @@ namespace ft{
 			mapNode*	_left;
 			mapNode*	_right;
 			T			_data;
-			int			_height;
 
-			explicit mapNode(value_type const& val = value_type()): _parent(NULL), _left(NULL), _right(NULL), _data(val), _height(0) {}
+			// explicit mapNode() : _parent(NULL), _left(NULL), _right(NULL), _data() { return; }
+			explicit mapNode(value_type const& val = value_type()): _parent(NULL), _left(NULL), _right(NULL), _data(val) {}
 			mapNode(const mapNode<T>& x) : _parent(x._parent), _left(x._left), _right(x._right), _data(x._data){}
 			virtual ~mapNode() {};
 			mapNode& operator=(const mapNode& obj) {
@@ -28,7 +28,6 @@ namespace ft{
 					_left = obj._left;
 					_right = obj._right;
 					_data = obj._data;
-					_height = obj._height;
 				}
 				return (*this);
 			}

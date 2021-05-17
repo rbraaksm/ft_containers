@@ -6,12 +6,14 @@
 /*   By: skorteka <skorteka@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/19 12:01:23 by skorteka      #+#    #+#                 */
-/*   Updated: 2020/10/19 12:01:23 by skorteka      ########   odam.nl         */
+/*   Updated: 2021/05/17 10:10:15 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef TRAITS_HPP
 #define TRAITS_HPP
+
+# include <iostream>
 
 namespace ft {
 
@@ -87,6 +89,24 @@ namespace ft {
 		typedef ft::random_access_iterator_tag	iterator_category;
 	};
 
+    template<bool B, class T = void>
+    struct enable_if {};
+
+    template<class T>
+    struct enable_if<true, T>
+    { typedef T type; };
+
+    template<typename T, typename C = typename T::iterator_category>
+    struct is_input_iterator {
+        typedef char yes[1];
+        typedef char no[2];
+
+        static yes& test(std::input_iterator_tag);
+        static no& test(...);
+
+        static const bool value = (sizeof(test(C())) == sizeof(yes));
+    };
+
 }
 
-#endif //TRAITS_HPP
+#endif
