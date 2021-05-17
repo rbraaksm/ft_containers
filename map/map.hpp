@@ -163,6 +163,27 @@ namespace ft{
 					  	insert(++first);
 				  }
 
+				void erase(iterator position){
+					node* look = findNode(position.getPtr(), position->first);
+					if (look)
+						deleteNode(look);
+				}
+
+				size_type erase(const key_type& k){
+					node* look = findNode(_root, k);
+					if (look)
+						return (deleteNode(look));
+					return (0);
+				}
+
+				// void erase(iterator first, iterator last){
+				// 	for (; first != last; ++first){
+				// 		iterator tmp(first);
+				// 		erase(tmp);
+				// 	}
+				// }
+
+
 				iterator find(const key_type& k){
 					node*	return_node = findNode(_root, k);
 					if (return_node)
@@ -225,7 +246,7 @@ namespace ft{
 								if (root_path.find('R') == std::string::npos)
 									for (; tmp_tabs; --tmp_tabs)
 										std::cout << "   ";
-								else 
+								else
 									for (int tmp_gap2 = tmp_gap * 2; tmp_gap2; --tmp_gap2)
 										std::cout << "   ";
 								print_node(root_path);
@@ -239,7 +260,7 @@ namespace ft{
 							if (root_path.find('R') == std::string::npos)
 								for (; tmp_tabs; --tmp_tabs)
 									std::cout << "   ";
-							else 
+							else
 								for (int tmp_gap2 = tmp_gap * 2; tmp_gap2; --tmp_gap2)
 									std::cout << "   ";
 							print_node(root_path);
@@ -249,10 +270,42 @@ namespace ft{
 				}
 
 			private:
+				int	deleteRoot(){
+					if (_root->_left == _bottom && _root->_right == _top){
+						_bottom->_parent = _top;
+						_top->_parent = _bottom;
+					}
+					else if (_root->_left != _bottom && _root->_right == _top){
+						_root->_left->_parent = NULL;
+						_root->_left->_right = _top;
+						_root->_right->_parent = _root->_left;
+						_root = _root->_left;
+					}
+					else if (_root->_left == _bottom && _root->_right != _top){
+						_root->_right->_parent = NULL;
+						_root->_right->_left = _bottom;
+						_root->_left->_parent = _root->_right;
+						_root = _root->_right;
+					}
+					else {
+						// highest left side
+					}
+					delete _root;
+					--_size;
+					balance(_root);
+					return (1);
+				}
+
+				int	deleteNode(node* income){
+					if (income->_parent == NULL)
+						return (deleteRoot());
+					return (1);
+				}
+
 				void	rightRotation(node* income)
 				{
 					node*	Y = income->_left;
-					
+
 					income->_left = Y->_right;
 					if (Y->_right)
 						Y->_right->_parent = income;
@@ -264,7 +317,7 @@ namespace ft{
 						income->_parent->_left = Y;
 					else if (income->_parent)
 						income->_parent->_right = Y;
-					
+
 					income->_parent = Y;
 
 					if (Y->_parent == NULL)
@@ -274,7 +327,7 @@ namespace ft{
 				void	leftRotation(node* income)
 				{
 					node*	Y = income->_right;
-					
+
 					income->_right = Y->_left;
 
 					if (Y->_left)
@@ -287,7 +340,7 @@ namespace ft{
 						income->_parent->_left = Y;
 					else if (income->_parent)
 						income->_parent->_right = Y;
-					
+
 					income->_parent = Y;
 					if (Y->_parent == NULL)
 						_root = Y;

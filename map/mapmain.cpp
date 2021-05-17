@@ -14,16 +14,23 @@ int	main(void){
 	// ft::map<char,int> first;
 
 	first[10]=10;
-	first[5]=30;
-	first[2]=30;
-	first[16]=50;
-	first[14]=30;
-	first[18]=20;
-	first[15]=70;
-	first[17]=70;
+	first[17]=10;
+	// first[2]=30;
+	// first[1]=30;
+	// first[5]=30;
+	// first[14]=30;
+	// first[16]=50;
+	// first[15]=70;
+	// first[18]=20;
+	// first[17]=70;
 
-	first.insert(ft::pair<char,int>(9, 30));
+	// first.insert(ft::pair<char,int>(9, 30));
+	ft::map<int,int>::iterator it = first.begin();
 	first.print_tree();
+	first.erase(it);
+	first.print_tree();
+	// first[12]=10;
+	// first.print_tree();
 
 //   std::map<char,int> first;
 
@@ -40,6 +47,6 @@ int	main(void){
 
 //   bool(*fn_pt)(char,char) = fncomp;
 //   std::map<char,int,bool(*)(char,char)> fifth (fn_pt); // function pointer as Compare
-
+	// system("leaks a.out");
 	return (0);
 }
