@@ -30,6 +30,10 @@ int	main(void){
 	first.print_tree();
 	first.erase(10);
 	first.print_tree();
+	first.erase(9);
+	first.print_tree();
+	first.erase(8);
+	first.print_tree();
 	// first.print_tree();
 	// first.print_tree();
 	// first.erase(it);

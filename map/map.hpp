@@ -300,7 +300,13 @@ namespace ft{
 							highest->_right = _root->_right;
 						}
 						else{
-							highest->_parent->_right = NULL;
+							if (highest->_left)
+							{
+								highest->_left->_parent = highest->_parent;
+								highest->_parent->_right = highest->_left;
+							}
+							else
+								highest->_parent->_right = NULL;
 							highest->_left = _root->_left;
 							highest->_right = _root->_right;
 
@@ -318,12 +324,13 @@ namespace ft{
 					if (income->_parent == NULL)
 						return (deleteRoot());
 					node *largest;
-					node *tmpincome = income;
+					// node *tmpincome = income;
 					if (income->_left)
 						largest = getLargest(income->_left);
 					else if (income->_right)
 						largest = income->_right;
-
+					// income->_parent->_right = // largest;
+					// largest->_parent = income->_parent;
 					return (1);
 				}
 
