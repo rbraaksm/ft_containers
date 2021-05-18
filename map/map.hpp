@@ -272,7 +272,7 @@ namespace ft{
 				while (_size)
 					deleteNode(_root);
 			}
-			
+
 			private:
 				node*	getLargest(node* income){
 					while (income && income->_right)
@@ -327,12 +327,18 @@ namespace ft{
 				int	deleteNode(node* income){
 					if (income->_parent == NULL)
 						return (deleteRoot());
-					node *largest;
-					// node *tmpincome = income;
+					node *largest = NULL;
 					if (income->_left)
 						largest = getLargest(income->_left);
 					else if (income->_right)
 						largest = income->_right;
+					if (largest == NULL || largest == _top || largest == _bottom){
+						// std::cout << "Largest: " << largest->_data.first << std::endl;
+						std::cout << "Income:  " << income->_data.first << std::endl;
+						std::cout << "Income2:  " << income->_parent->_right->_data.first << std::endl;
+						if (income->_parent->_right->_data.first == income->_data.first)
+							std::cout << "SAME\n";
+					}
 					// income->_parent->_right = // largest;
 					// largest->_parent = income->_parent;
 					return (1);

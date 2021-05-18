@@ -19,21 +19,27 @@ int	main(void){
 	first[2]=30;
 	first[17]=30;
 	first[8]=50;
-	first[4]=30;
+	// first[4]=30;
 	first[7]=30;
 	first[14]=20;
 	first[19]=70;
 	first[9]=70;
+	first[11]=70;
+	first[13]=70;
+	first[16]=70;
+	first[30]=70;
+	first[12]=70;
+	first[18]=70;
 
 	// first.insert(ft::pair<char,int>(9, 30));
 	// ft::map<int,int>::iterator it = first.begin();
-	first.print_tree();
-	first.erase(10);
-	first.print_tree();
-	first.erase(9);
-	first.print_tree();
-	first.erase(8);
-	first.clear();
+	// first.print_tree();
+	// first.erase(10);
+	// first.print_tree();
+	// first.erase(9);
+	// first.print_tree();
+	first.erase(2);
+	// first.clear();
 	first.print_tree();
 	// first.print_tree();
 	// first.print_tree();
@@ -42,7 +48,7 @@ int	main(void){
 	// first[12]=10;
 	// first.erase(it);
 	// first.print_tree();
-	std::cout << first.size() << std::endl;
+	// std::cout << first.size() << std::endl;
 
 //   std::map<char,int> first;
 
