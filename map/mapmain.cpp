@@ -14,23 +14,30 @@ int	main(void){
 	// ft::map<char,int> first;
 
 	first[10]=10;
-	first[17]=10;
-	// first[2]=30;
-	// first[1]=30;
-	// first[5]=30;
-	// first[14]=30;
-	// first[16]=50;
-	// first[15]=70;
-	// first[18]=20;
-	// first[17]=70;
+	first[15]=30;
+	first[5]=30;
+	first[2]=30;
+	first[17]=30;
+	first[8]=50;
+	first[4]=30;
+	first[7]=30;
+	first[14]=20;
+	first[19]=70;
+	first[9]=70;
 
 	// first.insert(ft::pair<char,int>(9, 30));
-	ft::map<int,int>::iterator it = first.begin();
+	// ft::map<int,int>::iterator it = first.begin();
 	first.print_tree();
-	first.erase(it);
+	first.erase(10);
 	first.print_tree();
-	// first[12]=10;
 	// first.print_tree();
+	// first.print_tree();
+	// first.erase(it);
+	// it = first.begin();
+	// first[12]=10;
+	// first.erase(it);
+	// first.print_tree();
+	// std::cout << first.size() << std::endl;
 
 //   std::map<char,int> first;
 

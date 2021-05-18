@@ -270,7 +270,14 @@ namespace ft{
 				}
 
 			private:
+				node*	getLargest(node* income){
+					while (income && income->_right)
+						income = income->_right;
+					return (income);
+				}
+
 				int	deleteRoot(){
+					node* tmproot = _root;
 					if (_root->_left == _bottom && _root->_right == _top){
 						_bottom->_parent = _top;
 						_top->_parent = _bottom;
@@ -287,10 +294,21 @@ namespace ft{
 						_root->_left->_parent = _root->_right;
 						_root = _root->_right;
 					}
-					else {
-						// highest left side
+					else{
+						node *highest = getLargest(_root->_left);
+						if (highest->_parent->_right->_data.first != highest->_data.first){
+							highest->_right = _root->_right;
+						}
+						else{
+							highest->_parent->_right = NULL;
+							highest->_left = _root->_left;
+							highest->_right = _root->_right;
+
+						}
+						highest->_parent = NULL;
+						_root = highest;
 					}
-					delete _root;
+					delete tmproot;
 					--_size;
 					balance(_root);
 					return (1);
@@ -299,6 +317,13 @@ namespace ft{
 				int	deleteNode(node* income){
 					if (income->_parent == NULL)
 						return (deleteRoot());
+					node *largest;
+					node *tmpincome = income;
+					if (income->_left)
+						largest = getLargest(income->_left);
+					else if (income->_right)
+						largest = income->_right;
+
 					return (1);
 				}
 
