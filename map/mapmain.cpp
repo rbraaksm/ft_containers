@@ -33,6 +33,7 @@ int	main(void){
 	first.erase(9);
 	first.print_tree();
 	first.erase(8);
+	first.clear();
 	first.print_tree();
 	// first.print_tree();
 	// first.print_tree();
@@ -41,7 +42,7 @@ int	main(void){
 	// first[12]=10;
 	// first.erase(it);
 	// first.print_tree();
-	// std::cout << first.size() << std::endl;
+	std::cout << first.size() << std::endl;
 
 //   std::map<char,int> first;
 

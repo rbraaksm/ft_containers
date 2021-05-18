@@ -268,7 +268,11 @@ namespace ft{
 							layer++;
 						}
 				}
-
+			void clear(){
+				while (_size)
+					deleteNode(_root);
+			}
+			
 			private:
 				node*	getLargest(node* income){
 					while (income && income->_right)
