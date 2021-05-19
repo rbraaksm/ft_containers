@@ -342,12 +342,16 @@ namespace ft{
 				}
 				
 				int	deleteTop(node *income){
-					std::cout << "TOP\n";
 					node* tmp = _top->_parent;
 					if (income && income->_left)
 						income = income->_left;
 					node* bottomparent = _top->_parent->_parent;
-					if (_top->_parent == income){
+					if (_top->_parent->_parent == _root && income->_left == NULL){
+						_root->_right = _top;
+						_top->_parent = _root;
+					}
+					else if (_top->_parent == income){
+					std::cout << "TOP\n";
 						_top->_parent->_parent->_right = _top;
 						_top->_parent = _top->_parent->_parent;
 					}
@@ -360,7 +364,7 @@ namespace ft{
 						income->_parent = bottomparent;
 						bottomparent->_right = income;
 					}
-					balance(_top->_parent);
+					// balance(tmp);
 					delete tmp;
 					--_size;
 					return (1);

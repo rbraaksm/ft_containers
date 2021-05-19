@@ -65,17 +65,19 @@ int	main(void){
 	first.erase(14);
 	first.erase(18);
 	
-	// first.erase(13);
+	first.erase(13);
 	// first.erase(7);
 	// first.erase(10);
 	// first.erase(9);
+	// first.erase(12);
+	// first.erase(8);
 	first.print_tree();
 	
 	// first.clear();
 	// first.print_tree();
 	// first[10]=10;
 	// first.print_tree();
-	// std::cout << first.size() << std::endl;
+	std::cout << first.size() << std::endl;
 	// system("leaks a.out");
 	return (0);
 }
