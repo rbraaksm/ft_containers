@@ -380,48 +380,46 @@ namespace ft{
 					return (1);
 				}
 
-				int	deleteBothNotSame(node* income, node* largest){
-					node* tmp = largest;
-					if (income->_right->_parent == income)
-						income->_right->_parent = largest;
-					else
-						income->_left->_parent = largest;
-
-					if (tmp->_parent->_right == tmp)
-						tmp->_parent->_right = tmp->_right;
-					else
-						tmp->_parent->_left = tmp->_left;
-					largest->_right = income->_right;
-					largest->_left = income->_left;
-					largest->_parent = income->_parent;
-					delete (income);
-					--_size;
-					balance(largest);
-					return (1);
-				}
-
-				int	deleteLeftSame(node* income, node* largest){
-					if (income->_right){
-						income->_right->_parent = largest;
-						largest->_right = income->_right;
+				void	setParentLargest(node* largest){
+					node* tmp = NULL;
+					if (largest->_left)
+						tmp = largest->_left;
+					if (tmp){
+						if (largest->_parent->_right == largest)
+							largest->_parent->_right = tmp;
+						else
+							largest->_parent->_left = tmp;
+						tmp->_parent = largest->_parent;
 					}
-					largest->_parent = income->_parent;
-					delete (income);
-					--_size;
-					return (1);
+					else{
+						if (largest->_parent->_right == largest)
+							largest->_parent->_right = largest->_right;
+						else
+							largest->_parent->_left = largest->_left;
+					}
 				}
 
-				int	deleteRightSame(node* income, node* largest){
+				void	setIncomeParent(node* income, node* largest){
+					/* set parent income */
+					if (income->_parent->_right == income)
+						income->_parent->_right = largest;
+					else
+						income->_parent->_left = largest;
+					largest->_parent = income->_parent;
+
+					/* set income left */
 					if (income->_left){
-						income->_left->_parent = largest;
 						largest->_left = income->_left;
-					}
-					largest->_parent = income->_parent;
-					delete (income);
-					--_size;
-					return (1);
-				}
+						income->_left->_parent = largest;
 
+					}
+
+					/* set income right */
+					if (income->_right){
+						largest->_right = income->_right;
+						income->_right->_parent = largest;
+					}
+				}
 
 				int	deleteNode(node* income){
 					if (income->_parent == NULL)
@@ -439,17 +437,12 @@ namespace ft{
 					else
 						largest = income->_right;
 
-					if (income->_parent->_right == income)
-						income->_parent->_right = largest;
-					else
-						income->_parent->_left = largest;
-
-					if (income->_left != largest && income->_right != largest)
-						return (deleteBothNotSame(income, largest));
-					else if (income->_left == largest)
-						return (deleteLeftSame(income, largest));
-					else
-						return (deleteRightSame(income, largest));
+					setParentLargest(largest);
+					setIncomeParent(income, largest);
+					balance(largest);
+					delete income;
+					--_size;
+					return (1);
 				}
 
 				void	rightRotation(node* income)

@@ -13,31 +13,36 @@ int	main(void){
 	ft::map<int,int> first;
 	// ft::map<char,int> first;
 
-	first[10]=10;
-	first[14]=30;
-	first[5]=30;
-	first[2]=30;
-	first[17]=30;
-	first[8]=50;
+	first[100]=10;
+	first[140]=30;
+	first[50]=30;
+	first[20]=30;
+	first[170]=30;
+	first[80]=50;
 	// first[4]=30;
-	first[7]=30;
-	first[14]=20;
+	first[70]=30;
+	first[140]=20;
 	// first[19]=70;
-	first[9]=70;
-	first[11]=70;
-	first[13]=70;
-	first[16]=70;
+	first[90]=70;
+	first[110]=70;
+	first[130]=70;
+	first[160]=70;
 	// first[30]=70;
-	first[12]=70;
-	first[20]=70;
-	first[18]=70;
-	first[3]=70;
+	first[120]=70;
+	first[200]=70;
+	first[180]=70;
+	first[30]=70;
+	first[125]=70;
+	first[135]=70;
+	first[132]=70;
+	first[150]=70;
+	first[136]=70;
 
 
 	first.print_tree();
 
 	/*Top erase */
-	// first.erase(20);
+	// first.erase(200);
 	// first.erase(18);
 	// first.erase(17);
 	// first.erase(16);
@@ -48,11 +53,33 @@ int	main(void){
 
 
 	/*Bottom erase */
-	first.erase(2);
-	first.erase(3);
-	first.erase(5);
-	first.erase(7);
-	first.erase(8);
+	// first.erase(2);
+	// first.erase(3);
+	// first.erase(5);
+	// first.erase(70);
+	// first.erase(30);
+	// first.erase(20);
+	// first.erase(136);
+	// first.print_tree();
+	first.erase(140);
+	first.print_tree();
+
+	first.erase(130);
+	first.print_tree();
+	first.erase(120);
+	first.print_tree();
+	first.erase(136);
+	first.print_tree();
+	first.erase(125);
+	first.print_tree();
+	first.erase(135);
+	first.print_tree();
+	first.erase(160);
+	// first.print_tree();
+
+	// first.erase(12);
+	// first.erase(13);
+	// first.erase(11);
 
 	/* erase */
 	// first.erase(11);
