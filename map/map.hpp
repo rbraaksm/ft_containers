@@ -182,10 +182,15 @@ namespace ft{
 				}
 				
 				void	clear(){
+					// erase(begin(), end());
+					int i = 0;
 					while (_size)
 					{
 						deleteRoot();
-						print_tree();
+						if (i == 14)
+							break ;
+						i++;
+						// print_tree();
 					}
 				}
 
@@ -211,7 +216,6 @@ namespace ft{
 				}
 
 				size_type count(const key_type& k) const{
-					// Node*	checkifexist = findNode(_root, k);
 					if (findNode(_root, k))
 						return 1;
 					else
@@ -522,7 +526,7 @@ namespace ft{
 						_root = Y;
 				}
 
-				node*	findNode(node* income, const key_type& val){
+				node*	findNode(node* income, const key_type& val) const{
 					if (income == NULL || income == _bottom || income == _top)
 						return (NULL);
 					if (income->_data.first == val)

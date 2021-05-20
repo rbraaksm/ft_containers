@@ -24,7 +24,7 @@ int	main(void){
 	first[90]=70;
 	first[110]=70;
 	first[130]=70;
-	first[160]=70;
+	// first[160]=70;
 	// // first[30]=70;
 	// first[120]=70;
 	// first[200]=70;
@@ -41,14 +41,14 @@ int	main(void){
 	first.print_tree();
 
 	/*Top erase */
-	// first.erase(200);
+	first.erase(170);
 	// first.erase(18);
 	// first.erase(17);
 	// first.erase(16);
 	// first.erase(15);
 	// first.erase(14);
 	// first.erase(13);
-	// first.print_tree();
+	first.print_tree();
 
 
 	/*Bottom erase */
@@ -103,9 +103,10 @@ int	main(void){
 	// first.clear();
 	// first.print_tree();
 	// first[10]=10;
+	std::cout << first.size() << std::endl;
+	// first.clear();
+	// std::cout << first.size() << std::endl;
 	// first.print_tree();
-	if (first.count(140))
-		std::cout << first.size() << std::endl;
 	// system("leaks a.out");
 	return (0);
 }
