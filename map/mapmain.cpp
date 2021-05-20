@@ -19,26 +19,25 @@ int	main(void){
 	first[20]=30;
 	first[170]=30;
 	first[80]=50;
-	// first[4]=30;
 	first[70]=30;
 	first[140]=20;
-	// first[19]=70;
 	first[90]=70;
 	first[110]=70;
 	first[130]=70;
 	first[160]=70;
+	// // first[30]=70;
+	// first[120]=70;
+	// first[200]=70;
+	// first[180]=70;
 	// first[30]=70;
-	first[120]=70;
-	first[200]=70;
-	first[180]=70;
-	first[30]=70;
-	first[125]=70;
-	first[135]=70;
-	first[132]=70;
-	first[150]=70;
-	first[136]=70;
+	// first[125]=70;
+	// first[135]=70;
+	// first[132]=70;
+	// first[150]=70;
+	// first[136]=70;
 
 
+	// first.erase(170);
 	first.print_tree();
 
 	/*Top erase */
@@ -61,20 +60,20 @@ int	main(void){
 	// first.erase(20);
 	// first.erase(136);
 	// first.print_tree();
-	first.erase(140);
-	first.print_tree();
+	// first.erase(140);
+	// first.print_tree();
 
-	first.erase(130);
-	first.print_tree();
-	first.erase(120);
-	first.print_tree();
-	first.erase(136);
-	first.print_tree();
-	first.erase(125);
-	first.print_tree();
-	first.erase(135);
-	first.print_tree();
-	first.erase(160);
+	// first.erase(130);
+	// first.print_tree();
+	// first.erase(120);
+	// first.print_tree();
+	// first.erase(136);
+	// first.print_tree();
+	// first.erase(125);
+	// first.print_tree();
+	// first.erase(135);
+	// first.print_tree();
+	// first.erase(160);
 	// first.print_tree();
 
 	// first.erase(12);
@@ -99,13 +98,14 @@ int	main(void){
 	// // first.erase(9);
 	// // first.erase(12);
 	// first.erase(8);
-	first.print_tree();
+	// first.print_tree();
 	
 	// first.clear();
 	// first.print_tree();
 	// first[10]=10;
 	// first.print_tree();
-	// std::cout << first.size() << std::endl;
+	if (first.count(140))
+		std::cout << first.size() << std::endl;
 	// system("leaks a.out");
 	return (0);
 }

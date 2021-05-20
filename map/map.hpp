@@ -13,6 +13,7 @@
 #define CGREEN   "\033[32m"      /* Green */
 #define CYELLOW  "\033[33m"      /* Yellow */
 #define CBLUE    "\033[34m"      /* Blue */
+
 namespace ft{
 	template < class Key, class T, class Compare = std::less<Key>, class Alloc = std::allocator<std::pair<const Key,T> > >
 	class map{
@@ -87,7 +88,7 @@ namespace ft{
 
 				// Destructor
 				~map(){
-					// clear();
+					clear();
 					delete _bottom;
 					delete _top;
 				}
@@ -95,7 +96,7 @@ namespace ft{
 				// Operator
 				 map& operator=(const map& x){
 					 if (this != &x){
-						// clear();
+						clear();
 						_alloc = x._alloc;
 						_comp = x._comp;
 						insert(x.begin(), x.end());
@@ -122,12 +123,8 @@ namespace ft{
 
 				size_type size() const{return (_size);}
 				size_type max_size() const{return (_alloc.max_size());}
-				// mapped_type& operator[](const key_type& k){
-				// 	return ((*((insert(ft::make_pair(k,mapped_type()))).first)).second);
-				// 	}
 
-				mapped_type& operator[] (const key_type& k)
-				{
+				mapped_type& operator[](const key_type& k){
 					if (findNode(_root, k) == NULL)
 						return ((*((insert(ft::make_pair(k,mapped_type()))).first)).second);
 					return (findNode(_root, k)->_data.second);
@@ -142,39 +139,61 @@ namespace ft{
 				}
 
 				iterator	insert(iterator position, const pair& val){
-				if (position->first == val.first)
-					return (position);
-				else
-					return (insert(val).first);
+					if (position->first == val.first)
+						return (position);
+					else
+						return (insert(val).first);
 				}
 
 				template <class InputIterator>
-  				void insert (typename enable_if<is_input_iterator<InputIterator>::value, InputIterator>::type first, InputIterator last){
+  				void	insert(typename enable_if<is_input_iterator<InputIterator>::value, InputIterator>::type first, InputIterator last){
 					  for (; first != last; ++first)
 					  	insert(++first);
-				  }
+				}
 
-				void erase(iterator position){
+				void	erase(iterator position){
 					node* look = findNode(position.getPtr(), position->first);
 					if (look)
 						deleteNode(look);
 				}
 
-				size_type erase(const key_type& k){
+				size_type	erase(const key_type& k){
 					node* look = findNode(_root, k);
 					if (look)
 						return (deleteNode(look));
 					return (0);
 				}
 
-				// void erase(iterator first, iterator last){
-				// 	for (; first != last; ++first){
-				// 		iterator tmp(first);
-				// 		erase(tmp);
-				// 	}
-				// }
+				void	erase(iterator first, iterator last){
+					for (; first != last; ++first){
+						iterator tmp(first);
+						erase(tmp);
+						}
+				}
 
+				void swap(map& x){
+					swap(this->_root, x._root);
+					swap(this->_root, x._root);
+					swap(this->_first, x._first);
+					swap(this->_last, x._last);
+					swap(this->_size, x._size);
+					swap(this->_alloc, x._alloc);
+					swap(this->_comp, x._comp);
+				}
+				
+				void	clear(){
+					while (_size)
+					{
+						deleteRoot();
+						print_tree();
+					}
+				}
 
+				// Observers
+				key_compare	key_comp() const { return (_comp);}
+				value_compare value_comp() const{ return (_comp);}
+
+				//Opeerations
 				iterator find(const key_type& k){
 					node*	return_node = findNode(_root, k);
 					if (return_node)
@@ -191,7 +210,15 @@ namespace ft{
 						return (end());
 				}
 
-				// key_compare key_comp() const{return (comp);}
+				size_type count(const key_type& k) const{
+					// Node*	checkifexist = findNode(_root, k);
+					if (findNode(_root, k))
+						return 1;
+					else
+						return 0;
+				}
+
+
 
 				void				print_node(std::string root_path)
 					{
@@ -215,25 +242,39 @@ namespace ft{
 						}
 					}
 
-				void				print_tree()
-				{
-						std::string root_path;
-						int layer = 0;
-						root_path = "";
-						int starting_tabs = 16;
-						int starting_gap = 16;
-						while (layer < 5)
-						{
-							root_path.clear();
-							int tmp_tabs = starting_tabs;
-							int tmp_gap = starting_gap;
-							for (int tmp_layer = layer; tmp_layer; --tmp_layer)
+				void	print_tree()
+					{
+							std::string root_path;
+							int layer = 0;
+							root_path = "";
+							int starting_tabs = 16;
+							int starting_gap = 16;
+							while (layer < 5)
 							{
-								root_path.append("L");
-								tmp_gap = tmp_gap / 2;
-								tmp_tabs -= tmp_gap;
-							}
-							while (root_path.find('L') != std::string::npos){
+								root_path.clear();
+								int tmp_tabs = starting_tabs;
+								int tmp_gap = starting_gap;
+								for (int tmp_layer = layer; tmp_layer; --tmp_layer)
+								{
+									root_path.append("L");
+									tmp_gap = tmp_gap / 2;
+									tmp_tabs -= tmp_gap;
+								}
+								while (root_path.find('L') != std::string::npos){
+									if (root_path.find('R') == std::string::npos)
+										for (; tmp_tabs; --tmp_tabs)
+											std::cout << "   ";
+									else
+										for (int tmp_gap2 = tmp_gap * 2; tmp_gap2; --tmp_gap2)
+											std::cout << "   ";
+									print_node(root_path);
+									size_t L_found = root_path.find_last_of('L');
+									root_path[L_found] = 'R';
+									++L_found;
+									for (;L_found != root_path.size(); ++L_found){
+										root_path[L_found] = 'L';
+									}
+								}
 								if (root_path.find('R') == std::string::npos)
 									for (; tmp_tabs; --tmp_tabs)
 										std::cout << "   ";
@@ -241,30 +282,22 @@ namespace ft{
 									for (int tmp_gap2 = tmp_gap * 2; tmp_gap2; --tmp_gap2)
 										std::cout << "   ";
 								print_node(root_path);
-								size_t L_found = root_path.find_last_of('L');
-								root_path[L_found] = 'R';
-								++L_found;
-								for (;L_found != root_path.size(); ++L_found){
-									root_path[L_found] = 'L';
-								}
+								std::cout << std::endl << std::endl << std::endl;
+								layer++;
 							}
-							if (root_path.find('R') == std::string::npos)
-								for (; tmp_tabs; --tmp_tabs)
-									std::cout << "   ";
-							else
-								for (int tmp_gap2 = tmp_gap * 2; tmp_gap2; --tmp_gap2)
-									std::cout << "   ";
-							print_node(root_path);
-							std::cout << std::endl << std::endl << std::endl;
-							layer++;
-						}
-				}
-			void clear(){
-				while (_size)
-					deleteRoot();
-			}
+					}
+
+
 
 			private:
+				template < typename U >
+				void	swap(U& a, U& b)
+					{
+						U tmp = a;
+						a = b;
+						b = tmp;
+					}
+				
 				node*	getLargest(node* income){
 					while (income && income->_right)
 						income = income->_right;
