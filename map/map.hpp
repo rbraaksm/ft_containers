@@ -190,7 +190,7 @@ namespace ft{
 				key_compare	key_comp() const { return (_comp);}
 				value_compare value_comp() const{ return (_comp);}
 
-				//Opeerations
+				//Operations
 				iterator find(const key_type& k){
 					node*	return_node = findNode(_root, k);
 					if (return_node)
@@ -209,12 +209,61 @@ namespace ft{
 
 				size_type count(const key_type& k) const{
 					if (findNode(_root, k))
-						return 1;
+						return (1);
 					else
-						return 0;
+						return (0);
 				}
 
+				iterator lower_bound(const key_type& k){
+					iterator it = begin();
+					for (; it != end(); it++)
+					{
+						if (!_compare(it->first, k))
+							break ;
+					}
+					return (it);
+				}
 
+				const_iterator lower_bound(const key_type& k) const{
+					const_iterator it = begin();
+					for (; it != end(); it++)
+					{
+						if (!_compare(it->first, k))
+							break ;
+					}
+					return (it);
+				}
+
+				iterator upper_bound(const key_type& k){
+					iterator it = begin();
+					for (; it != end(); it++)
+					{
+						if (_compare(k, it->first))
+							break ;
+					}
+					return (it);
+				}
+
+				const_iterator upper_bound(const key_type& k) const{
+					const_iterator it = begin();
+					for (; it != end(); it++){
+						if (_compare(k, it->first))
+							break ;
+					}
+					return (it);
+				}
+
+				ft::pair<const_iterator,const_iterator> equal_range(const key_type& k) const{
+					const_iterator it = lower_bound(k);
+					const_iterator it2 = upper_bound(k);
+					return (ft::make_pair<const_iterator, const_iterator>(it, it2));
+				}
+
+				ft::pair<iterator,iterator>	equal_range(const key_type& k){
+					iterator it = lower_bound(k);
+					iterator it2 = upper_bound(k);
+					return (ft::make_pair<iterator, iterator>(it, it2));
+				}
 
 				void				print_node(std::string root_path)
 					{
