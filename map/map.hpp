@@ -153,7 +153,7 @@ namespace ft{
 
 				void	erase(iterator position){
 					node* look = findNode(position.getPtr(), position->first);
-					if (look)
+					if (look && _size)
 						deleteNode(look);
 				}
 
@@ -165,8 +165,9 @@ namespace ft{
 				}
 
 				void	erase(iterator first, iterator last){
-					for (; first != last; ++first){
+					for (; first != last;){
 						iterator tmp(first);
+						++first;
 						erase(tmp);
 						}
 				}
@@ -180,18 +181,9 @@ namespace ft{
 					swap(this->_alloc, x._alloc);
 					swap(this->_comp, x._comp);
 				}
-				
+
 				void	clear(){
-					// erase(begin(), end());
-					int i = 0;
-					while (_size)
-					{
-						deleteRoot();
-						if (i == 14)
-							break ;
-						i++;
-						// print_tree();
-					}
+					erase(begin(), end());
 				}
 
 				// Observers
@@ -301,7 +293,7 @@ namespace ft{
 						a = b;
 						b = tmp;
 					}
-				
+
 				node*	getLargest(node* income){
 					while (income && income->_right)
 						income = income->_right;
@@ -310,41 +302,37 @@ namespace ft{
 
 				int	deleteRoot(){
 					node* tmproot = _root;
-					if (_root->_left == _bottom && _root->_right == _top){
+					if (_size == 1){
 						_bottom->_parent = _top;
 						_top->_parent = _bottom;
+						_root = NULL;
 					}
-					else if (_root->_left != _bottom && _root->_right == _top){
-						_root->_left->_parent = NULL;
-						_root->_left->_right = _top;
-						_root->_right->_parent = _root->_left;
-						_root = _root->_left;
-					}
-					else if (_root->_left == _bottom && _root->_right != _top){
-						_root->_right->_parent = NULL;
-						_root->_right->_left = _bottom;
-						_root->_left->_parent = _root->_right;
+					else if (_root->_left == _bottom){
+						_bottom->_parent = _root->_right;
+						_root->_right->_parent->_left = _bottom;
 						_root = _root->_right;
 					}
-					else{
-						node *highest = getLargest(_root->_left);
-						if (highest->_parent->_right != highest){
-							highest->_right = _root->_right;
-						}
-						else{
-							if (highest->_left)
-							{
-								highest->_left->_parent = highest->_parent;
-								highest->_parent->_right = highest->_left;
-							}
-							else
-								highest->_parent->_right = NULL;
-							highest->_left = _root->_left;
-							highest->_right = _root->_right;
+					else if (_root->_right == _top){
+						_bottom->_parent = _root->_left;
+						_root->_left->_parent->_right = _bottom;
+						_root = _root->_left;
 
+					}
+					else if (_root->_right && _root->_left) {
+						node* tmp = getLargest(_root->_left);
+						if (tmp->_parent->_right == tmp){
+							if (tmp->_left)
+								tmp->_parent->_right = tmp->_left;
+							else
+								tmp->_parent->_right = tmp->_right;
 						}
-						highest->_parent = NULL;
-						_root = highest;
+						_root->_left->_parent = tmp;
+						_root->_right->_parent = tmp;
+						tmp->_right = _root->_right;
+						if (tmp->_left != _bottom)
+							tmp->_left = _root->_left;
+						tmp->_parent = NULL;
+						_root = tmp;
 					}
 					--_size;
 					if (_size != 0)
@@ -376,9 +364,10 @@ namespace ft{
 					--_size;
 					return (1);
 				}
-				
+
 				int	deleteTop(node *income){
 					node* tmp = _top->_parent;
+
 					if (_top->_parent->_parent == _root && income->_left == NULL){
 						_root->_right = _top;
 						_top->_parent = _root;
@@ -467,7 +456,7 @@ namespace ft{
 						return (deleteBottom(_bottom->_parent));
 					else if (income->_right == NULL && income->_left == NULL)
 						return (deleteEnd(income));
-	
+
 					node* largest = NULL;
 					if (income->_left)
 						largest = getLargest(income->_left);
