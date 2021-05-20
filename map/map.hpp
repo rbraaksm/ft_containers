@@ -317,7 +317,6 @@ namespace ft{
 				}
 
 				int	deleteBottom(node *income){
-					std::cout << "BOTTOM\n";
 					if (income && income->_right)
 						income = income->_right;
 					node* tmp = _bottom->_parent;
@@ -335,7 +334,7 @@ namespace ft{
 						income->_parent = bottomparent;
 						bottomparent->_left = income;
 					}
-					balance(_bottom->_parent);
+					balance(tmp);
 					delete tmp;
 					--_size;
 					return (1);
@@ -343,15 +342,14 @@ namespace ft{
 				
 				int	deleteTop(node *income){
 					node* tmp = _top->_parent;
-					if (income && income->_left)
-						income = income->_left;
-					node* bottomparent = _top->_parent->_parent;
 					if (_top->_parent->_parent == _root && income->_left == NULL){
 						_root->_right = _top;
 						_top->_parent = _root;
 					}
-					else if (_top->_parent == income){
-					std::cout << "TOP\n";
+					if (income && income->_left)
+						income = income->_left;
+					node* bottomparent = _top->_parent->_parent;
+					if (_top->_parent == income){
 						_top->_parent->_parent->_right = _top;
 						_top->_parent = _top->_parent->_parent;
 					}
@@ -364,14 +362,13 @@ namespace ft{
 						income->_parent = bottomparent;
 						bottomparent->_right = income;
 					}
-					// balance(tmp);
+					balance(tmp);
 					delete tmp;
 					--_size;
 					return (1);
 				}
 
 				int	deleteEnd(node* income){
-					std::cout << "END\n";
 					node* tmp = income->_parent;
 					if (tmp->_right == income)
 						tmp->_right = NULL;
@@ -384,13 +381,7 @@ namespace ft{
 				}
 
 				int	deleteBothNotSame(node* income, node* largest){
-					std::cout << "SAME\n";
 					node* tmp = largest;
-					// if (income->_parent->_right == income)
-					// 	income->_parent->_right = largest;
-					// else
-					// 	income->_parent->_left = largest;
-
 					if (income->_right->_parent == income)
 						income->_right->_parent = largest;
 					else
@@ -410,12 +401,6 @@ namespace ft{
 				}
 
 				int	deleteLeftSame(node* income, node* largest){
-					std::cout << "LEFT\n";
-					// if (income->_parent->_right == income)
-					// 	income->_parent->_right = largest;
-					// else
-					// 	income->_parent->_left = largest;
-
 					if (income->_right){
 						income->_right->_parent = largest;
 						largest->_right = income->_right;
@@ -427,12 +412,6 @@ namespace ft{
 				}
 
 				int	deleteRightSame(node* income, node* largest){
-					std::cout << "RIGHT\n";
-					// if (income->_parent->_right == income)
-					// 	income->_parent->_right = largest;
-					// else
-					// 	income->_parent->_left = largest;
-					
 					if (income->_left){
 						income->_left->_parent = largest;
 						largest->_left = income->_left;
@@ -459,9 +438,6 @@ namespace ft{
 						largest = getLargest(income->_left);
 					else
 						largest = income->_right;
-
-					std::cout << "\nIncome: " << income->_data.first << std::endl;
-					std::cout << "Largest: " << largest->_data.first << std::endl;
 
 					if (income->_parent->_right == income)
 						income->_parent->_right = largest;

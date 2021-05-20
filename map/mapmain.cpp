@@ -48,28 +48,29 @@ int	main(void){
 
 
 	/*Bottom erase */
-	// first.erase(2);
-	// first.erase(3);
-	// first.erase(5);
-	// first.erase(7);
-	// first.erase(8);
+	first.erase(2);
+	first.erase(3);
+	first.erase(5);
+	first.erase(7);
+	first.erase(8);
 
 	/* erase */
-	first.erase(11);
-	first.erase(5);
-	first.erase(3);
-	first.erase(17);
-	first.erase(16);
-	first.erase(20);
-	first.erase(2);
-	first.erase(14);
-	first.erase(18);
+	// first.erase(11);
+	// first.erase(5);
+	// first.erase(3);
+	// first.erase(17);
+	// first.erase(16);
+	// first.erase(20);
+	// first.erase(2);
+	// first.erase(14);
+	// first.erase(18);
 	
-	first.erase(13);
+	// first.print_tree();
+	// first.erase(13);
 	// first.erase(7);
-	// first.erase(10);
-	// first.erase(9);
-	// first.erase(12);
+	// // first.erase(10);
+	// // first.erase(9);
+	// // first.erase(12);
 	// first.erase(8);
 	first.print_tree();
 	
@@ -77,7 +78,7 @@ int	main(void){
 	// first.print_tree();
 	// first[10]=10;
 	// first.print_tree();
-	std::cout << first.size() << std::endl;
+	// std::cout << first.size() << std::endl;
 	// system("leaks a.out");
 	return (0);
 }
