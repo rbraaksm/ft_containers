@@ -18,7 +18,6 @@ namespace ft{
 			mapNode*	_right;
 			T			_data;
 
-			// explicit mapNode() : _parent(NULL), _left(NULL), _right(NULL), _data() { return; }
 			explicit mapNode(value_type const& val = value_type()): _parent(NULL), _left(NULL), _right(NULL), _data(val) {}
 			mapNode(const mapNode<T>& x) : _parent(x._parent), _left(x._left), _right(x._right), _data(x._data){}
 			virtual ~mapNode() {};
@@ -50,6 +49,29 @@ namespace ft{
 					next = next->_parent;
 				}
 				return next;
+			}
+
+			mapNode*		getPrev(){
+				mapNode* next = this;
+				mapNode* tmp = next->_parent;			
+				if (next->_left)
+				{
+					next = next->_left;
+					while (next->_right)
+						next = next->_right;
+					return next;	
+				}
+				while (tmp && next == tmp->_left)
+				{
+					tmp = tmp->_parent;
+					next = next->_parent;
+				}
+				if (!tmp) {
+					while (next->_right != NULL)
+						next = next->_right;
+					tmp = next->_right;
+				}
+				return tmp;
 			}
 	};
 }

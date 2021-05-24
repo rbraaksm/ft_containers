@@ -3,24 +3,24 @@
 #                                                         ::::::::             #
 #    Makefile                                           :+:    :+:             #
 #                                                      +:+                     #
-#    By: renebraaksma <renebraaksma@student.42.f      +#+                      #
+#    By: sam <sam@student.codam.nl>                   +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/10/02 15:16:50 by sam           #+#    #+#                  #
-#    Updated: 2021/05/17 09:52:18 by rbraaksm      ########   odam.nl          #
+#    Updated: 2021/05/24 13:00:09 by rbraaksm      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = ft_containers_tests
-FILES = ../catchMain testlist
-SRCS = $(addsuffix .cpp, $(FILES))
+NAME = ft_containers
+FILES = main
+SRCS = $(addprefix srcs/, $(addsuffix .cpp, $(FILES)))
 OBJS = $(SRCS:.cpp=.o)
+INCLUDE = -Isrcs -Isrcs/vector -Isrcs/queue -Isrcs/stack -Isrcs/map
 
-# Add the directories you need here:
-INCLUDE = -I list
+# INCLUDE = -Isrcs -Isrcs/list -Isrcs/queue -Isrcs/stack -Isrcs/vector -Isrcs/map
 
-CXXFLAGS = -std=c++11
-ifdef asan
- CXXFLAGS += -g -fsanitize=address -fno-omit-frame-pointer -O0
+CXXFLAGS = -W -Wall -Werror -Wextra -pedantic -std=c++98 -O0
+ifdef debug
+ CXXFLAGS += -g -fsanitize=address -fno-omit-frame-pointer -O1
 endif
 
 ifeq ($(shell uname), Linux)
@@ -40,12 +40,18 @@ $(NAME): $(OBJS)
 	@echo $(ECHO) "$(PREFIX)$(GREEN) Bundling executable... $(END)$(NAME)"
 	@$(CXX) $(CXXFLAGS) $(OBJS) $(INCLUDE) -o $@
 
+test:
+	@echo $(ECHO) "$(PREFIX)$(GREEN) Running tests... $(END)$(NAME)"
+	@cd test && make run asan=1
+
+%.a: %
+	@echo $(ECHO) "$(PREFIX)$(GREEN) Compiling file $(END)$< $(GREEN)to $(END)$@"
+	@make -s -C $<
+	@cp $</$@ .
+
 %.o: %.cpp
 	@echo $(ECHO) "$(PREFIX)$(GREEN) Compiling file $(END)$< $(GREEN)to $(END)$@"
 	@$(CXX) $(CXXFLAGS) $(INCLUDE) -c $< -o $@
-
-run: all
-	./$(NAME)
 
 clean:
 	@echo $(ECHO) "$(PREFIX)$(GREEN) Removing .o files $(END)$(OUT_DIR)"
@@ -54,7 +60,11 @@ clean:
 fclean: clean
 	@echo $(ECHO) "$(PREFIX)$(GREEN) Removing executable $(END)$(OUT_DIR)"
 	@rm -rf $(NAME)
+	@cd test && make fclean
 
 re: fclean all
 
-.PHONY: clean fclean re all
+run: clean all
+	./$(NAME)
+
+.PHONY: clean fclean re all test

@@ -147,6 +147,7 @@ namespace ft{
 			node->_next = _head->_next;
 			node->_prev = _head;
 			_head->_next = node;
+			++_size;
 		}
 
 		void pop_front(){
@@ -181,8 +182,11 @@ namespace ft{
 		iterator insert(iterator position, const value_type& val){
 			Node<value_type>* pointer = position.getPtr();
 			Node<value_type>* node = new Node<value_type>(pointer->_next, pointer->_prev, val);
+			node->_prev = pointer->_prev;
+			node->_next = pointer;
+			pointer->_prev->_next = node;
 			pointer->_prev = node;
-			node->_prev->_next = node;
+
 			_size++;
 			return (iterator(node));
 		}
@@ -278,18 +282,18 @@ namespace ft{
 		  }
 
 		void unique(){
-			for(iterator it = begin(); it != end(); ++it)
-				while (*it == it.getPtr()->_next->_data){
-					erase(it);
-					--it;}
+			for(iterator it = begin(); it != end();)
+				if (*it == it.getPtr()->_next->_data)
+					it = erase(it);
+				else
+					++it;
 		}
 
 		template <class BinaryPredicate>
   		void unique(BinaryPredicate binary_pred){
-			for(iterator it = begin(); it != end(); ++it)
-				while (binary_pred(*it, it.getPtr()->_next->_data)){
+			for (iterator it = ++begin() ;it != this->end(); ++it)
+				if (binary_pred(*it, it.getPtr()->_prev->_data))
 					erase(it);
-					--it;}
   		}
 
 		void merge(list& x){
@@ -348,6 +352,10 @@ namespace ft{
 			swap(_tail->_next, _tail->_prev);
 			swap(_head, _tail);
 		}
+
+		//Observers
+		allocator_type get_allocator() const{ return (_allocator);}
+
 };
 
 // Relational operators
@@ -362,6 +370,13 @@ namespace ft{
 			++rhsIt;
 		}
 		return (true);
+	}
+
+	template <class T, class Alloc>
+	void swap(list<T,Alloc>& x, list<T,Alloc>& y)
+	{
+		x.swap(y);
+		return;
 	}
 
 	template<class value_type, class allocator_type>

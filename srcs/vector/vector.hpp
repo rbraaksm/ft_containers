@@ -88,8 +88,8 @@ namespace ft{
 		const_iterator end() const{return (const_iterator(&_array[_size]));}
 		reverse_iterator rbegin() {return (reverse_iterator(&_array[_size - 1]));}
 		const_reverse_iterator rbegin() const {return (const_reverse_iterator(&_array[_size - 1]));}
-		reverse_iterator rend() {return (reverse_iterator(_array-1));}
-		const_reverse_iterator rend() const {return (const_reverse_iterator(_array-1));}
+		reverse_iterator rend() {return (reverse_iterator(_array - 1));}
+		const_reverse_iterator rend() const {return (const_reverse_iterator(_array - 1));}
 
 		// Capacity
 		size_type size() const{return (_size);}
@@ -238,9 +238,14 @@ namespace ft{
 			swap(_size, x._size);
 			swap(_array, x._array);
 		}
+
+		allocator_type get_allocator() const { return this->_allocator; }
 };
 
-// // Relational operators
+// Relational operators
+	template <class T, class Alloc>
+  	void swap(vector<T,Alloc>& x, vector<T,Alloc>& y){ x.swap(y); }
+
 	template <class value_type, class allocator_type>
 	bool operator== (const vector<value_type,allocator_type>& lhs, const vector<value_type,allocator_type>& rhs) {
 		if (lhs.size() != rhs.size()) {return (false);}

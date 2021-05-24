@@ -73,17 +73,18 @@ namespace ft{
 				template <class InputIterator>
 				map(InputIterator first, InputIterator last, const key_compare& comp = key_compare(), const allocator_type& alloc = allocator_type()) :
 					_root(), _top(new node), _bottom(new node), _comp(comp), _size(0), _alloc(alloc){
-
 					_bottom->_parent = _top;
 					_top->_parent = _bottom;
 					insert(first, last);
 				}
 
-				map(const map& x) : _root(), _top(new node), _bottom(new node){
+				map(const map& x) : _root(), _top(new node), _bottom(new node), _size(0){
 
 					_bottom->_parent = _top;
 					_top->_parent = _bottom;
-					*this = x;
+					_alloc = x._alloc;
+					insert(x.begin(), x.end());
+					// *this = x;
 				}
 
 				// Destructor
@@ -146,10 +147,19 @@ namespace ft{
 				}
 
 				template <class InputIterator>
-  				void	insert(typename enable_if<is_input_iterator<InputIterator>::value, InputIterator>::type first, InputIterator last){
-					  for (; first != last; ++first)
-					  	insert(++first);
+				void insert (InputIterator first, InputIterator last,
+							typename ft::check_type<typename ft::iterator_traits<InputIterator>::iterator_category>::type* = 0) {
+					while (first != last) {
+						
+						insert(*first);
+						++first;
+					}
 				}
+				// template <class InputIterator>
+  				// void	insert(typename enable_if<is_input_iterator<InputIterator>::value, InputIterator>::type first, InputIterator last){
+				// 	  for (; first != last; ++first)
+				// 	  	insert(++first);
+				// }
 
 				void	erase(iterator position){
 					node* look = findNode(position.getPtr(), position->first);
@@ -173,13 +183,12 @@ namespace ft{
 				}
 
 				void swap(map& x){
-					swap(this->_root, x._root);
-					swap(this->_root, x._root);
-					swap(this->_first, x._first);
-					swap(this->_last, x._last);
-					swap(this->_size, x._size);
-					swap(this->_alloc, x._alloc);
-					swap(this->_comp, x._comp);
+					swap(_root, x._root);
+					swap(_bottom, x._bottom);
+					swap(_top, x._top);
+					swap(_size, x._size);
+					swap(_alloc, x._alloc);
+					swap(_comp, x._comp);
 				}
 
 				void	clear(){
@@ -218,7 +227,7 @@ namespace ft{
 					iterator it = begin();
 					for (; it != end(); it++)
 					{
-						if (!_compare(it->first, k))
+						if (!_comp(it->first, k))
 							break ;
 					}
 					return (it);
@@ -228,7 +237,7 @@ namespace ft{
 					const_iterator it = begin();
 					for (; it != end(); it++)
 					{
-						if (!_compare(it->first, k))
+						if (!_comp(it->first, k))
 							break ;
 					}
 					return (it);
@@ -238,7 +247,7 @@ namespace ft{
 					iterator it = begin();
 					for (; it != end(); it++)
 					{
-						if (_compare(k, it->first))
+						if (_comp(k, it->first))
 							break ;
 					}
 					return (it);
@@ -247,7 +256,7 @@ namespace ft{
 				const_iterator upper_bound(const key_type& k) const{
 					const_iterator it = begin();
 					for (; it != end(); it++){
-						if (_compare(k, it->first))
+						if (_comp(k, it->first))
 							break ;
 					}
 					return (it);
@@ -417,25 +426,27 @@ namespace ft{
 				int	deleteTop(node *income){
 					node* tmp = _top->_parent;
 
+					node* bottomparent = _top->_parent->_parent;
 					if (_top->_parent->_parent == _root && income->_left == NULL){
 						_root->_right = _top;
 						_top->_parent = _root;
 					}
-					if (income && income->_left)
-						income = income->_left;
-					node* bottomparent = _top->_parent->_parent;
-					if (_top->_parent == income){
-						_top->_parent->_parent->_right = _top;
-						_top->_parent = _top->_parent->_parent;
-					}
 					else{
-						node* bottomnext = income;
-						while (bottomnext && bottomnext->_right)
-							bottomnext = bottomnext->_right;
-						bottomnext->_right = _top;
-						_top->_parent = bottomnext;
-						income->_parent = bottomparent;
-						bottomparent->_right = income;
+						if (income && income->_left)
+							income = income->_left;
+						if (_top->_parent == income){
+							_top->_parent->_parent->_right = _top;
+							_top->_parent = _top->_parent->_parent;
+						}
+						else{
+							node* bottomnext = income;
+							while (bottomnext && bottomnext->_right)
+								bottomnext = bottomnext->_right;
+							bottomnext->_right = _top;
+							_top->_parent = bottomnext;
+							income->_parent = bottomparent;
+							bottomparent->_right = income;
+						}
 					}
 					balance(tmp);
 					delete tmp;
@@ -577,6 +588,7 @@ namespace ft{
 				}
 
 				ft::pair<iterator,bool> set_root(const node_pointer tmp) {
+
 					_root = tmp;
 					_bottom->_parent = _root;
 					_top->_parent = _root;

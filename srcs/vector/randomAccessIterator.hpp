@@ -165,11 +165,11 @@ namespace ft {
 		bool operator!=(const revRandomAccessIterator& obj) {return (_ptr != obj._ptr);}
 
 		reference operator*() {return (*_ptr);}
-		pointer operator->() {return *(&(_ptr));}
+		pointer operator->() {return (_ptr);}
 
 		revRandomAccessIterator operator++(int) { // Overload postfix ++
 			revRandomAccessIterator ret(*this);
-			_ptr--;
+			++(*this);
 			return (ret);
 		}
 
@@ -191,7 +191,7 @@ namespace ft {
 
 		revRandomAccessIterator operator--(int) { // Overload postfix -
 			revRandomAccessIterator ret(*this);
-			_ptr++;
+			--(*this);
 			return (ret);
 		}
 
@@ -216,7 +216,7 @@ namespace ft {
 		bool operator>(const revRandomAccessIterator& obj) {return (_ptr > obj._ptr);}
 		bool operator<(const revRandomAccessIterator& obj) {return (_ptr < obj._ptr);}
 
-		reference	operator[](difference_type n) {return (*(_ptr + n));}
+		reference	operator[](difference_type n) {return (*(_ptr[-n]));}
 		pointer getPtr() const {return (_ptr);}
 	};
 
@@ -233,6 +233,10 @@ namespace ft {
 		typedef Category 						iterator_category;
 		typedef constRevRandomAccessIterator	self_type;
 
+	private:
+		pointer	_ptr;
+
+	public:
 		constRevRandomAccessIterator() : revRandomAccessIterator<T>(NULL) {}
 		explicit constRevRandomAccessIterator(pointer node) : revRandomAccessIterator<T>(node) {}
 		constRevRandomAccessIterator(const constRevRandomAccessIterator& obj) {*this = obj;}
@@ -252,8 +256,8 @@ namespace ft {
 		}
 
 		virtual ~constRevRandomAccessIterator() {}
-		const_reference operator*() {return (*this)->_ptr;}
-		const_pointer operator->() {return *(&(this->_ptr));}
+		const_reference operator*() {return (*_ptr);}
+		const_pointer operator->() {return (_ptr);}
 		const_reference	operator[](difference_type n) {return (*(this->_ptr + n));}
 	};
 

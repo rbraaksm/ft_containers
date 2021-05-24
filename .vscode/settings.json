@@ -76,6 +76,7 @@
 		"typeinfo": "cpp",
 		"utility": "cpp",
 		"variant": "cpp",
-		"filesystem": "cpp"
+		"filesystem": "cpp",
+		"queue": "cpp"
 	}
 }
