@@ -1,14 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        ::::::::            */
-/*   vectorTest.cpp                                     :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2020/10/28 13:30:18 by sam           #+#    #+#                 */
-/*   Updated: 2021/05/25 15:20:33 by rbraaksm      ########   odam.nl         */
-/*                                                                            */
-/* ************************************************************************** */
 
 #include "Catch2.h"
 
@@ -1078,3 +1067,4 @@ TEST_CASE("vector-operation overloaders", "[vector]")
 	REQUIRE((real > real3) == false);
 	REQUIRE((real >= real3) == true);
 }
+
