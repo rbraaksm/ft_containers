@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/28 13:30:18 by sam           #+#    #+#                 */
-/*   Updated: 2021/05/25 12:33:07 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2021/05/25 15:20:33 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -175,25 +175,30 @@ TEST_CASE("Vector: Constructors", "[Vector]") {
 
 TEST_CASE("Vector: Resize", "[Vector]") {
 	ft::vector<int> myvector;
+	std::vector<int> realvector;
 
 	// set some initial content:
 	for (int i=1;i<6;i++) myvector.push_back(i);
+	for (int i=1;i<6;i++) realvector.push_back(i);
 
 	myvector.resize(5);
-	REQUIRE(myvector.capacity() == 8);
-	REQUIRE(myvector.size() == 5);
-	REQUIRE(myvector.front() == 1);
-	REQUIRE(myvector.back() == 5);
+	realvector.resize(5);
+	REQUIRE(myvector.capacity() == realvector.capacity());
+	REQUIRE(myvector.size() == realvector.size());
+	REQUIRE(myvector.front() == realvector.front());
+	REQUIRE(myvector.back() == realvector.back());
 	myvector.resize(8,100);
-	REQUIRE(myvector.capacity() == 8);
-	REQUIRE(myvector.size() == 8);
-	REQUIRE(myvector.front() == 1);
-	REQUIRE(myvector.back() == 100);
+	realvector.resize(8,100);
+	REQUIRE(myvector.capacity() == realvector.capacity());
+	REQUIRE(myvector.size() == realvector.size());
+	REQUIRE(myvector.front() == realvector.front());
+	REQUIRE(myvector.back() == realvector.back());
 	myvector.resize(12);
-	REQUIRE(myvector.capacity() == 16);
-	REQUIRE(myvector.size() == 12);
-	REQUIRE(myvector.front() == 1);
-	REQUIRE(myvector.back() == 0);
+	realvector.resize(12);
+	REQUIRE(myvector.capacity() == realvector.capacity());
+	REQUIRE(myvector.size() == realvector.size());
+	REQUIRE(myvector.front() == realvector.front());
+	REQUIRE(myvector.back() == realvector.back());
 }
 
 TEST_CASE("Vector: [] operator overload", "[Vector]") {
@@ -222,40 +227,28 @@ TEST_CASE("Vector: At", "[Vector") {
 TEST_CASE("Vector: Insert", "[Vector]") {
 	ft::vector<int> myvector (3,100);
 	ft::vector<int>::iterator it;
+	std::vector<int> realvector (3,100);
+	std::vector<int>::iterator rit;
 
 	it = myvector.begin();
 	it = myvector.insert ( it , 200 );
+	rit = realvector.begin();
+	rit = realvector.insert ( rit , 200 );
 	// myvector contains: 200 100 100 100
-	REQUIRE(myvector.size() == 4);
-	REQUIRE(myvector.capacity() == 6);
-	REQUIRE(myvector.at(0) == 200);
-	REQUIRE(myvector.at(2) == 100);
+	REQUIRE(myvector.size() == realvector.size());
+	REQUIRE(myvector.capacity() == realvector.capacity());
+	REQUIRE(myvector.at(0) == realvector.at(0));
+	REQUIRE(myvector.at(2) == realvector.at(2));
 
 
 	myvector.insert (it,2,300);
+	realvector.insert (rit,2,300);
 	// myvector contains: 300 300 200 100 100 100
-	REQUIRE(myvector.size() == 6);
-	REQUIRE(myvector.capacity() == 6);
-	REQUIRE(myvector.at(0) == 300);
-	REQUIRE(myvector.at(2) == 200);
+	REQUIRE(myvector.size() == realvector.size());
+	REQUIRE(myvector.capacity() == realvector.capacity());
+	REQUIRE(myvector.at(0) == realvector.at(0));
+	REQUIRE(myvector.at(2) == realvector.at(2));
 
-	// "it" no longer valid, get a new one:
-	it = myvector.begin();
-
-	ft::vector<int> anothervector (2,400);
-	myvector.insert (it+2,anothervector.begin(),anothervector.end());
-	REQUIRE(myvector.size() == 8);
-	REQUIRE(myvector.capacity() == 12);
-
-	int myarray [] = { 501,502,503 };
-	myvector.insert (myvector.begin(), myarray, myarray+3);
-	REQUIRE(myvector.size() == 11);
-	REQUIRE(myvector.capacity() == 12);
-	REQUIRE(myvector.at(0) == 501);
-	REQUIRE(myvector.at(2) == 503);
-	REQUIRE(myvector.at(5) == 400);
-	REQUIRE(myvector.at(7) == 200);
-	REQUIRE(myvector.back() == 100);
 }
 
 TEST_CASE("Vector: Erase", "[Vector]") {
@@ -367,7 +360,7 @@ TEST_CASE("Vector: subtracting two iterators", "[Vector]") {
 	REQUIRE(it2 - it == 3);
 }
 
-/*-----------------CONSTRUCTORS-----------------*/
+// /*-----------------CONSTRUCTORS-----------------*/
 TEST_CASE("vector-default constructor", "[vector]")
 {
 	ft::vector<int> 	own;
