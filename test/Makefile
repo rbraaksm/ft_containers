@@ -6,14 +6,14 @@
 #    By: renebraaksma <renebraaksma@student.42.f      +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/10/02 15:16:50 by sam           #+#    #+#                  #
-#    Updated: 2021/05/24 18:28:11 by rbraaksm      ########   odam.nl          #
+#    Updated: 2021/05/25 12:30:35 by rbraaksm      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = ft_containers_tests
 
-FILES = catchMain RandomAccesIteratorTest
-# FILES = catchMain mapTest listTest vectorTest queueTest stackTest
+FILES = catchMain vectorTest
+# FILES = catchMain mapTest listTest vectorTest queueTest stackTest BidirectionalIteratorTest RandomAccessIteratorTest
 SRCS = $(addsuffix .cpp, $(FILES))
 OBJS = $(SRCS:.cpp=.o)
 
