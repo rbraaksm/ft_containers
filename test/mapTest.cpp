@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/11/01 11:14:55 by sam           #+#    #+#                 */
-/*   Updated: 2021/05/26 09:37:28 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2021/05/26 14:34:46 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -927,439 +927,439 @@ TEST_CASE("map-erase function version 2 erasing by key", "[map]")
 	own.erase(4);
 	real.erase(4);
 
-	// // Delete Root with 2 children
-	// own.insert(ft::pair<int, int>(15, 15));
-	// own.insert(ft::pair<int, int>(10, 10));
-	// own.insert(ft::pair<int, int>(20, 20));
-	// own.insert(ft::pair<int, int>(5, 5));
-	// own.insert(ft::pair<int, int>(19, 19));
-	// own.insert(ft::pair<int, int>(25, 25));
-	// own.insert(ft::pair<int, int>(13, 13));
+	// Delete Root with 2 children
+	own.insert(ft::pair<int, int>(15, 15));
+	own.insert(ft::pair<int, int>(10, 10));
+	own.insert(ft::pair<int, int>(20, 20));
+	own.insert(ft::pair<int, int>(5, 5));
+	own.insert(ft::pair<int, int>(19, 19));
+	own.insert(ft::pair<int, int>(25, 25));
+	own.insert(ft::pair<int, int>(13, 13));
 
-	// real.insert(std::pair<int, int>(15, 15));
-	// real.insert(std::pair<int, int>(10, 10));
-	// real.insert(std::pair<int, int>(20, 20));
-	// real.insert(std::pair<int, int>(5, 5));
-	// real.insert(std::pair<int, int>(19, 19));
-	// real.insert(std::pair<int, int>(25, 25));
-	// real.insert(std::pair<int, int>(13, 13));
+	real.insert(std::pair<int, int>(15, 15));
+	real.insert(std::pair<int, int>(10, 10));
+	real.insert(std::pair<int, int>(20, 20));
+	real.insert(std::pair<int, int>(5, 5));
+	real.insert(std::pair<int, int>(19, 19));
+	real.insert(std::pair<int, int>(25, 25));
+	real.insert(std::pair<int, int>(13, 13));
 
-	// REQUIRE(own.size() == real.size());
-	// REQUIRE(own.empty() == real.empty());
-	// own.erase(6);
-	// real.erase(6);
+	REQUIRE(own.size() == real.size());
+	REQUIRE(own.empty() == real.empty());
+	own.erase(6);
+	real.erase(6);
 
-	// REQUIRE(own.size() == real.size());
-	// REQUIRE(own.empty() == real.empty());
+	REQUIRE(own.size() == real.size());
+	REQUIRE(own.empty() == real.empty());
 
-	// // Delete a Leaf Node Max
-	// own.erase(25);
-	// real.erase(25);
-	// REQUIRE(own.size() == real.size());
-	// REQUIRE(own.empty() == real.empty());
+	// Delete a Leaf Node Max
+	own.erase(25);
+	real.erase(25);
+	REQUIRE(own.size() == real.size());
+	REQUIRE(own.empty() == real.empty());
 
-	// // Delete a Leaf Node Min
-	// own.erase(5);
-	// real.erase(5);
-	// REQUIRE(own.size() == real.size());
-	// REQUIRE(own.empty() == real.empty());
+	// Delete a Leaf Node Min
+	own.erase(5);
+	real.erase(5);
+	REQUIRE(own.size() == real.size());
+	REQUIRE(own.empty() == real.empty());
 
-	// // Delete with only one Son and is the Min Node
-	// own.erase(10);
-	// real.erase(10);
+	// Delete with only one Son and is the Min Node
+	own.erase(10);
+	real.erase(10);
 
-	// REQUIRE(own.size() == real.size());
-	// REQUIRE(own.empty() == real.empty());
+	REQUIRE(own.size() == real.size());
+	REQUIRE(own.empty() == real.empty());
 
-	// // Delete with only one Son and is the Max Node
-	// own.erase(20);
-	// real.erase(20);
+	// Delete with only one Son and is the Max Node
+	own.erase(20);
+	real.erase(20);
 
-	// REQUIRE(own.size() == real.size());
-	// REQUIRE(own.empty() == real.empty());
+	REQUIRE(own.size() == real.size());
+	REQUIRE(own.empty() == real.empty());
 
-	// own.insert(ft::pair<int, int>(15, 15));
-	// own.insert(ft::pair<int, int>(10, 10));
-	// own.insert(ft::pair<int, int>(20, 20));
-	// own.insert(ft::pair<int, int>(5, 5));
-	// own.insert(ft::pair<int, int>(19, 19));
-	// own.insert(ft::pair<int, int>(25, 25));
-	// own.insert(ft::pair<int, int>(13, 13));
+	own.insert(ft::pair<int, int>(15, 15));
+	own.insert(ft::pair<int, int>(10, 10));
+	own.insert(ft::pair<int, int>(20, 20));
+	own.insert(ft::pair<int, int>(5, 5));
+	own.insert(ft::pair<int, int>(19, 19));
+	own.insert(ft::pair<int, int>(25, 25));
+	own.insert(ft::pair<int, int>(13, 13));
 
-	// real.insert(std::pair<int, int>(15, 15));
-	// real.insert(std::pair<int, int>(10, 10));
-	// real.insert(std::pair<int, int>(20, 20));
-	// real.insert(std::pair<int, int>(5, 5));
-	// real.insert(std::pair<int, int>(19, 19));
-	// real.insert(std::pair<int, int>(25, 25));
-	// real.insert(std::pair<int, int>(13, 13));
+	real.insert(std::pair<int, int>(15, 15));
+	real.insert(std::pair<int, int>(10, 10));
+	real.insert(std::pair<int, int>(20, 20));
+	real.insert(std::pair<int, int>(5, 5));
+	real.insert(std::pair<int, int>(19, 19));
+	real.insert(std::pair<int, int>(25, 25));
+	real.insert(std::pair<int, int>(13, 13));
 
-	// // Delete a node which has two sons
-	// own.erase(20);
-	// real.erase(20);
+	// Delete a node which has two sons
+	own.erase(20);
+	real.erase(20);
 
-	// REQUIRE(own.size() == real.size());
-	// REQUIRE(own.empty() == real.empty());
+	REQUIRE(own.size() == real.size());
+	REQUIRE(own.empty() == real.empty());
 }
 
-// TEST_CASE("map-erase function version 3 erasing by range", "[map]")
-// {
-// 	ft::map<char,int> own;
-// 	std::map<char,int> real;
-
-// 	std::map<char, int>::iterator		real_it;
-// 	ft::map<char, int>::iterator		own_it;
-
-// 	// insert some values:
-// 	own['a'] = 10;
-// 	own['b'] = 20;
-// 	own['c'] = 30;
-// 	own['d'] = 40;
-// 	own['e'] = 50;
-// 	own['f'] = 60;
-
-// 	real['a'] = 10;
-// 	real['b'] = 20;
-// 	real['c'] = 30;
-// 	real['d'] = 40;
-// 	real['e'] = 50;
-// 	real['f'] = 60;
-
-// 	own_it = own.find('b');
-// 	real_it = real.find('b');
-// 	own.erase(own_it);                   // erasing by iterator
-// 	real.erase(real_it);                   // erasing by iterator
-
-// 	real_it = real.begin();
-// 	own_it = own.begin();
-
-// 	REQUIRE(own.size() == real.size());
-
-// 	while (own_it != own.end())
-// 	{
-// 		REQUIRE(own_it->first == real_it->first);
-// 		REQUIRE(own_it->second == real_it->second);
-// 		++own_it;
-// 		++real_it;
-// 	}
-
-// 	own_it = own.find ('e');
-// 	real_it = real.find('e');
-// 	own.erase ( own_it, own.end() );    // erasing by range
-// 	real.erase ( real_it, real.end() );    // erasing by range
-
-// 	real_it = real.begin();
-// 	own_it = own.begin();
-
-// 	REQUIRE(own.size() == real.size());
-
-// 	while (own_it != own.end())
-// 	{
-// 		REQUIRE(own_it->first == real_it->first);
-// 		REQUIRE(own_it->second == real_it->second);
-// 		++own_it;
-// 		++real_it;
-// 	}
-// }
-
-// TEST_CASE("map-swap function", "[map]")
-// {
-// 	ft::map<char,int> own;
-// 	ft::map<char,int> own2;
-// 	ft::map<char,int> own3;
-
-// 	std::map<char,int> real;
-// 	std::map<char,int> real2;
-// 	std::map<char,int> real3;
-
-// 	own['x']=100;
-// 	own['y']=200;
-
-// 	own2['a']=11;
-// 	own2['b']=22;
-// 	own2['c']=33;
-
-// 	real['x']=100;
-// 	real['y']=200;
-
-// 	real2['a']=11;
-// 	real2['b']=22;
-// 	real2['c']=33;
-
-// 	own.swap(own2);
-// 	real.swap(real2);
-
-// 	REQUIRE(own.size() == real.size());
-
-// 	std::map<char, int>::iterator		real_it = real.begin();
-// 	ft::map<char, int>::iterator		own_it = own.begin();
-
-// 	while (own_it != own.end())
-// 	{
-// 		REQUIRE(own_it->first == real_it->first);
-// 		REQUIRE(own_it->second == real_it->second);
-// 		++own_it;
-// 		++real_it;
-// 	}
-// }
-
-// TEST_CASE("map-clear function", "[map]")
-// {
-// 	std::map<char,int>	real;
-// 	ft::map<char,int>	own;
-
-
-// 	own['x'] = 100;
-// 	own['y'] = 200;
-// 	own['z'] = 300;
-
-// 	real['x'] = 100;
-// 	real['y'] = 200;
-// 	real['z'] = 300;
-
-// 	REQUIRE(own.size() == real.size());
-
-// 	std::map<char, int>::iterator		real_it = real.begin();
-// 	ft::map<char, int>::iterator		own_it = own.begin();
-
-// 	while (own_it != own.end())
-// 	{
-// 		REQUIRE(own_it->first == real_it->first);
-// 		REQUIRE(own_it->second == real_it->second);
-// 		++own_it;
-// 		++real_it;
-// 	}
-
-// 	own.clear();
-// 	real.clear();
-
-// 	own['a'] = 1101;
-// 	own['b'] = 2202;
-
-// 	real['a'] = 1101;
-// 	real['b'] = 2202;
-
-// 	REQUIRE(own.size() == real.size());
-
-// 	real_it = real.begin();
-// 	own_it = own.begin();
-
-// 	while (own_it != own.end())
-// 	{
-// 		REQUIRE(own_it->first == real_it->first);
-// 		REQUIRE(own_it->second == real_it->second);
-// 		++own_it;
-// 		++real_it;
-// 	}
-// }
-
-// // /*-----------------OBSERVERS-----------------*/
-// TEST_CASE("map-key_comp function", "[map]")
-// {
-// 	ft::map<char,int> own;
-// 	std::map<char,int> real;
-
-// 	ft::map<char,int>::key_compare own_compare = own.key_comp();
-// 	std::map<char,int>::key_compare real_compare = real.key_comp();
-
-// 	own['a'] = 100;
-// 	own['b'] = 200;
-// 	own['c'] = 300;
-
-// 	real['a'] = 100;
-// 	real['b'] = 200;
-// 	real['c'] = 300;
-// 	char highest_own = own.rbegin()->first;     // key value of last element
-// 	char highest_real = real.rbegin()->first;     // key value of last element
-
-// 	REQUIRE(own_compare(own.begin()->first, highest_own) == real_compare(real.begin()->first, highest_real) );
-// }
-
-// TEST_CASE("map-value_comp function", "[map]")
-// {
-// 	ft::map<char,int> own;
-// 	std::map<char,int> real;
-
-// 	ft::map<char,int>::iterator own_it = own.begin();
-// 	std::map<char,int>::iterator real_it = real.begin();
-
-// 	own['a'] = 100;
-// 	own['b'] = 200;
-// 	own['c'] = 300;
-
-// 	real['a'] = 100;
-// 	real['b'] = 200;
-// 	real['c'] = 300;
-// 	ft::pair<char, int> highest_own = *own.rbegin();    // key value of last element
-// 	std::pair<char, int> highest_real = *real.rbegin();     // key value of last element
-
-// 	REQUIRE(own.value_comp()(*own_it, highest_own) == real.value_comp()(*real_it, highest_real) );
-// }
-
-// // /*-----------------OPERATIONS-----------------*/
-// TEST_CASE("map-find function", "[map]")
-// {
-// 	ft::map<char,int> own;
-// 	std::map<char,int> real;
-
-// 	ft::map<char,int>::iterator own_it;
-// 	std::map<char,int>::iterator real_it;
-
-// 	own['a'] = 50;
-// 	own['b'] = 100;
-// 	own['c'] = 150;
-// 	own['d'] = 1233;
-// 	own['e'] = 533;
-// 	own['f'] = 1876;
-// 	own['g'] = 1928;
-// 	own['h'] = 4887;
-
-// 	real['a'] = 50;
-// 	real['b'] = 100;
-// 	real['c'] = 150;
-// 	real['d'] = 1233;
-// 	real['e'] = 533;
-// 	real['f'] = 1876;
-// 	real['g'] = 1928;
-// 	real['h'] = 4887;
-
-// 	own_it = own.find('b');
-// 	real_it = real.find('b');
-// 	if (own_it != own.end() && real_it != real.end())
-// 	{
-// 		real.erase(real_it);
-// 		own.erase(own_it);
-// 	}
-// 	own_it = own.find('f');
-// 	real_it = real.find('f');
-
-// 	own.erase(own_it, own.end());
-// 	real.erase(real_it, real.end());
-
-// 	real_it = real.begin();
-// 	own_it = own.begin();
-
-// 	REQUIRE(own.size() == real.size());
-
-// 	while (real_it != real.end())
-// 	{
-// 		REQUIRE(own_it->first == real_it->first);
-// 		REQUIRE(own_it->second == real_it->second);
-// 		++own_it;
-// 		++real_it;
-// 	}
-// }
-
-// TEST_CASE("map-count function", "[map]")
-// {
-// 	ft::map<char,int> own;
-// 	std::map<char,int> real;
-
-// 	own['a'] = 50;
-// 	own['b'] = 100;
-// 	own['c'] = 150;
-// 	own['d'] = 1233;
-// 	own['e'] = 533;
-// 	own['f'] = 1876;
-// 	own['g'] = 1928;
-// 	own['h'] = 4887;
-
-// 	real['a'] = 50;
-// 	real['b'] = 100;
-// 	real['c'] = 150;
-// 	real['d'] = 1233;
-// 	real['e'] = 533;
-// 	real['f'] = 1876;
-// 	real['g'] = 1928;
-// 	real['h'] = 4887;
-
-// 	ft::map<char,int>::iterator own_it = own.begin();
-// 	std::map<char,int>::iterator real_it = real.begin();
-
-// 	REQUIRE(own.size() == real.size());
-
-// 	while (real_it != real.end())
-// 	{
-// 		REQUIRE(own_it->first == real_it->first);
-// 		REQUIRE(own_it->second == real_it->second);
-// 		++own_it;
-// 		++real_it;
-// 	}
-
-// 	REQUIRE(own.count('a') == real.count('a'));
-// 	REQUIRE(own.count('b') == real.count('b'));
-
-// 	own_it = own.find('b');
-// 	real_it = real.find('b');
-
-// 	if (own_it != own.end() && real_it != real.end())
-// 	{
-// 		real.erase(real_it);
-// 		own.erase(own_it);
-// 	}
-
-// 	REQUIRE(own.count('b') == real.count('b'));
-// 	REQUIRE(own.count('z') == real.count('z'));
-
-// }
-
-// TEST_CASE("map-lower_bound function", "[map]")
-// {
-// 	ft::map<char,int> own;
-// 	std::map<char,int> real;
-
-// 	ft::map<char,int>::iterator			own_itlow;
-// 	ft::map<char,int>::const_iterator	own_itlow_const;
-// 	std::map<char,int>::iterator		real_itlow;
-// 	std::map<char,int>::const_iterator	real_itlow_const;
-
-// 	own['a'] = 20;
-// 	own['b'] = 40;
-// 	own['c'] = 60;
-// 	own['d'] = 80;
-// 	own['e'] = 100;
-
-// 	real['a'] = 20;
-// 	real['b'] = 40;
-// 	real['c'] = 60;
-// 	real['d'] = 80;
-// 	real['e'] = 100;
-
-// 	own_itlow = own.lower_bound('b');
-// 	real_itlow = real.lower_bound('b');
-
-// 	REQUIRE(own_itlow->first == real_itlow->first);
-// 	REQUIRE(own_itlow->second == real_itlow->second);
-
-// 	own_itlow = own.lower_bound('c');
-// 	real_itlow = real.lower_bound('c');
-
-// 	REQUIRE(own_itlow->first == real_itlow->first);
-// 	REQUIRE(own_itlow->second == real_itlow->second);
-
-// 	own_itlow_const = own.lower_bound('a');
-// 	real_itlow_const = real.lower_bound('a');
-
-// 	REQUIRE(own_itlow_const->first == real_itlow_const->first);
-// 	REQUIRE(own_itlow_const->second == real_itlow_const->second);
-
-// 	own.erase('b');
-// 	real.erase('b');
-
-// 	own_itlow = own.lower_bound('b');
-// 	real_itlow = real.lower_bound('b');
-
-
-// 	REQUIRE(own_itlow->first == real_itlow->first);
-// 	REQUIRE(own_itlow->second == real_itlow->second);
-
-// 	own_itlow_const = own.lower_bound('b');
-// 	real_itlow_const = real.lower_bound('b');
-
-// 	REQUIRE(own_itlow_const->first == real_itlow_const->first);
-// 	REQUIRE(own_itlow_const->second == real_itlow_const->second);
-
-// }
+TEST_CASE("map-erase function version 3 erasing by range", "[map]")
+{
+	ft::map<char,int> own;
+	std::map<char,int> real;
+
+	std::map<char, int>::iterator		real_it;
+	ft::map<char, int>::iterator		own_it;
+
+	// insert some values:
+	own['a'] = 10;
+	own['b'] = 20;
+	own['c'] = 30;
+	own['d'] = 40;
+	own['e'] = 50;
+	own['f'] = 60;
+
+	real['a'] = 10;
+	real['b'] = 20;
+	real['c'] = 30;
+	real['d'] = 40;
+	real['e'] = 50;
+	real['f'] = 60;
+
+	own_it = own.find('b');
+	real_it = real.find('b');
+	own.erase(own_it);                   // erasing by iterator
+	real.erase(real_it);                   // erasing by iterator
+
+	real_it = real.begin();
+	own_it = own.begin();
+
+	REQUIRE(own.size() == real.size());
+
+	while (own_it != own.end())
+	{
+		REQUIRE(own_it->first == real_it->first);
+		REQUIRE(own_it->second == real_it->second);
+		++own_it;
+		++real_it;
+	}
+
+	own_it = own.find ('e');
+	real_it = real.find('e');
+	own.erase ( own_it, own.end() );    // erasing by range
+	real.erase ( real_it, real.end() );    // erasing by range
+
+	real_it = real.begin();
+	own_it = own.begin();
+
+	REQUIRE(own.size() == real.size());
+
+	while (own_it != own.end())
+	{
+		REQUIRE(own_it->first == real_it->first);
+		REQUIRE(own_it->second == real_it->second);
+		++own_it;
+		++real_it;
+	}
+}
+
+TEST_CASE("map-swap function", "[map]")
+{
+	ft::map<char,int> own;
+	ft::map<char,int> own2;
+	ft::map<char,int> own3;
+
+	std::map<char,int> real;
+	std::map<char,int> real2;
+	std::map<char,int> real3;
+
+	own['x']=100;
+	own['y']=200;
+
+	own2['a']=11;
+	own2['b']=22;
+	own2['c']=33;
+
+	real['x']=100;
+	real['y']=200;
+
+	real2['a']=11;
+	real2['b']=22;
+	real2['c']=33;
+
+	own.swap(own2);
+	real.swap(real2);
+
+	REQUIRE(own.size() == real.size());
+
+	std::map<char, int>::iterator		real_it = real.begin();
+	ft::map<char, int>::iterator		own_it = own.begin();
+
+	while (own_it != own.end())
+	{
+		REQUIRE(own_it->first == real_it->first);
+		REQUIRE(own_it->second == real_it->second);
+		++own_it;
+		++real_it;
+	}
+}
+
+TEST_CASE("map-clear function", "[map]")
+{
+	std::map<char,int>	real;
+	ft::map<char,int>	own;
+
+
+	own['x'] = 100;
+	own['y'] = 200;
+	own['z'] = 300;
+
+	real['x'] = 100;
+	real['y'] = 200;
+	real['z'] = 300;
+
+	REQUIRE(own.size() == real.size());
+
+	std::map<char, int>::iterator		real_it = real.begin();
+	ft::map<char, int>::iterator		own_it = own.begin();
+
+	while (own_it != own.end())
+	{
+		REQUIRE(own_it->first == real_it->first);
+		REQUIRE(own_it->second == real_it->second);
+		++own_it;
+		++real_it;
+	}
+
+	own.clear();
+	real.clear();
+
+	own['a'] = 1101;
+	own['b'] = 2202;
+
+	real['a'] = 1101;
+	real['b'] = 2202;
+
+	REQUIRE(own.size() == real.size());
+
+	real_it = real.begin();
+	own_it = own.begin();
+
+	while (own_it != own.end())
+	{
+		REQUIRE(own_it->first == real_it->first);
+		REQUIRE(own_it->second == real_it->second);
+		++own_it;
+		++real_it;
+	}
+}
+
+// /*-----------------OBSERVERS-----------------*/
+TEST_CASE("map-key_comp function", "[map]")
+{
+	ft::map<char,int> own;
+	std::map<char,int> real;
+
+	ft::map<char,int>::key_compare own_compare = own.key_comp();
+	std::map<char,int>::key_compare real_compare = real.key_comp();
+
+	own['a'] = 100;
+	own['b'] = 200;
+	own['c'] = 300;
+
+	real['a'] = 100;
+	real['b'] = 200;
+	real['c'] = 300;
+	char highest_own = own.rbegin()->first;     // key value of last element
+	char highest_real = real.rbegin()->first;     // key value of last element
+
+	REQUIRE(own_compare(own.begin()->first, highest_own) == real_compare(real.begin()->first, highest_real) );
+}
+
+TEST_CASE("map-value_comp function", "[map]")
+{
+	ft::map<char,int> own;
+	std::map<char,int> real;
+
+	ft::map<char,int>::iterator own_it = own.begin();
+	std::map<char,int>::iterator real_it = real.begin();
+
+	own['a'] = 100;
+	own['b'] = 200;
+	own['c'] = 300;
+
+	real['a'] = 100;
+	real['b'] = 200;
+	real['c'] = 300;
+	ft::pair<char, int> highest_own = *own.rbegin();    // key value of last element
+	std::pair<char, int> highest_real = *real.rbegin();     // key value of last element
+
+	REQUIRE(own.value_comp()(*own_it, highest_own) == real.value_comp()(*real_it, highest_real) );
+}
+
+// /*-----------------OPERATIONS-----------------*/
+TEST_CASE("map-find function", "[map]")
+{
+	ft::map<char,int> own;
+	std::map<char,int> real;
+
+	ft::map<char,int>::iterator own_it;
+	std::map<char,int>::iterator real_it;
+
+	own['a'] = 50;
+	own['b'] = 100;
+	own['c'] = 150;
+	own['d'] = 1233;
+	own['e'] = 533;
+	own['f'] = 1876;
+	own['g'] = 1928;
+	own['h'] = 4887;
+
+	real['a'] = 50;
+	real['b'] = 100;
+	real['c'] = 150;
+	real['d'] = 1233;
+	real['e'] = 533;
+	real['f'] = 1876;
+	real['g'] = 1928;
+	real['h'] = 4887;
+
+	own_it = own.find('b');
+	real_it = real.find('b');
+	if (own_it != own.end() && real_it != real.end())
+	{
+		real.erase(real_it);
+		own.erase(own_it);
+	}
+	own_it = own.find('f');
+	real_it = real.find('f');
+
+	own.erase(own_it, own.end());
+	real.erase(real_it, real.end());
+
+	real_it = real.begin();
+	own_it = own.begin();
+
+	REQUIRE(own.size() == real.size());
+
+	while (real_it != real.end())
+	{
+		REQUIRE(own_it->first == real_it->first);
+		REQUIRE(own_it->second == real_it->second);
+		++own_it;
+		++real_it;
+	}
+}
+
+TEST_CASE("map-count function", "[map]")
+{
+	ft::map<char,int> own;
+	std::map<char,int> real;
+
+	own['a'] = 50;
+	own['b'] = 100;
+	own['c'] = 150;
+	own['d'] = 1233;
+	own['e'] = 533;
+	own['f'] = 1876;
+	own['g'] = 1928;
+	own['h'] = 4887;
+
+	real['a'] = 50;
+	real['b'] = 100;
+	real['c'] = 150;
+	real['d'] = 1233;
+	real['e'] = 533;
+	real['f'] = 1876;
+	real['g'] = 1928;
+	real['h'] = 4887;
+
+	ft::map<char,int>::iterator own_it = own.begin();
+	std::map<char,int>::iterator real_it = real.begin();
+
+	REQUIRE(own.size() == real.size());
+
+	while (real_it != real.end())
+	{
+		REQUIRE(own_it->first == real_it->first);
+		REQUIRE(own_it->second == real_it->second);
+		++own_it;
+		++real_it;
+	}
+
+	REQUIRE(own.count('a') == real.count('a'));
+	REQUIRE(own.count('b') == real.count('b'));
+
+	own_it = own.find('b');
+	real_it = real.find('b');
+
+	if (own_it != own.end() && real_it != real.end())
+	{
+		real.erase(real_it);
+		own.erase(own_it);
+	}
+
+	REQUIRE(own.count('b') == real.count('b'));
+	REQUIRE(own.count('z') == real.count('z'));
+
+}
+
+TEST_CASE("map-lower_bound function", "[map]")
+{
+	ft::map<char,int> own;
+	std::map<char,int> real;
+
+	ft::map<char,int>::iterator			own_itlow;
+	ft::map<char,int>::const_iterator	own_itlow_const;
+	std::map<char,int>::iterator		real_itlow;
+	std::map<char,int>::const_iterator	real_itlow_const;
+
+	own['a'] = 20;
+	own['b'] = 40;
+	own['c'] = 60;
+	own['d'] = 80;
+	own['e'] = 100;
+
+	real['a'] = 20;
+	real['b'] = 40;
+	real['c'] = 60;
+	real['d'] = 80;
+	real['e'] = 100;
+
+	own_itlow = own.lower_bound('b');
+	real_itlow = real.lower_bound('b');
+
+	REQUIRE(own_itlow->first == real_itlow->first);
+	REQUIRE(own_itlow->second == real_itlow->second);
+
+	own_itlow = own.lower_bound('c');
+	real_itlow = real.lower_bound('c');
+
+	REQUIRE(own_itlow->first == real_itlow->first);
+	REQUIRE(own_itlow->second == real_itlow->second);
+
+	own_itlow_const = own.lower_bound('a');
+	real_itlow_const = real.lower_bound('a');
+
+	REQUIRE(own_itlow_const->first == real_itlow_const->first);
+	REQUIRE(own_itlow_const->second == real_itlow_const->second);
+
+	// own.erase('b');
+	// real.erase('b');
+
+	// own_itlow = own.lower_bound('b');
+	// real_itlow = real.lower_bound('b');
+
+
+	// REQUIRE(own_itlow->first == real_itlow->first);
+	// REQUIRE(own_itlow->second == real_itlow->second);
+
+	// own_itlow_const = own.lower_bound('b');
+	// real_itlow_const = real.lower_bound('b');
+
+	// REQUIRE(own_itlow_const->first == real_itlow_const->first);
+	// REQUIRE(own_itlow_const->second == real_itlow_const->second);
+
+}
 
 // TEST_CASE("map-upper_bound function", "[map]")
 // {
@@ -1419,55 +1419,55 @@ TEST_CASE("map-erase function version 2 erasing by key", "[map]")
 
 // }
 
-// TEST_CASE("map-equal range function", "[map]")
-// {
-// 	std::map<char,int>	real;
-// 	ft::map<char,int>	own;
+TEST_CASE("map-equal range function", "[map]")
+{
+	std::map<char,int>	real;
+	ft::map<char,int>	own;
 
 
-// 	own['a'] = 20;
-// 	own['b'] = 40;
-// 	own['c'] = 60;
-// 	own['d'] = 80;
-// 	own['e'] = 100;
+	own['a'] = 20;
+	own['b'] = 40;
+	own['c'] = 60;
+	own['d'] = 80;
+	own['e'] = 100;
 
-// 	real['a'] = 20;
-// 	real['b'] = 40;
-// 	real['c'] = 60;
-// 	real['d'] = 80;
-// 	real['e'] = 100;
+	real['a'] = 20;
+	real['b'] = 40;
+	real['c'] = 60;
+	real['d'] = 80;
+	real['e'] = 100;
 
-// 	std::pair<std::map<char,int>::iterator,std::map<char,int>::iterator>	real_ret;
-// 	ft::pair<ft::map<char,int>::iterator,ft::map<char,int>::iterator>		own_ret;
+	std::pair<std::map<char,int>::iterator,std::map<char,int>::iterator>	real_ret;
+	ft::pair<ft::map<char,int>::iterator,ft::map<char,int>::iterator>		own_ret;
 
-// 	std::pair<std::map<char,int>::iterator,std::map<char,int>::iterator>	real_ret_const;
-// 	ft::pair<ft::map<char,int>::iterator,ft::map<char,int>::iterator>		own_ret_const;
+	std::pair<std::map<char,int>::iterator,std::map<char,int>::iterator>	real_ret_const;
+	ft::pair<ft::map<char,int>::iterator,ft::map<char,int>::iterator>		own_ret_const;
 
-// 	own_ret = own.equal_range('b');
-// 	real_ret = real.equal_range('b');
+	own_ret = own.equal_range('b');
+	real_ret = real.equal_range('b');
 
-// 	REQUIRE(own_ret.first->first == real_ret.first->first);
-// 	REQUIRE(own_ret.first->second == real_ret.first->second);
-// 	REQUIRE(own_ret.second->first == real_ret.second->first);
-// 	REQUIRE(own_ret.second->second == real_ret.second->second);
+	REQUIRE(own_ret.first->first == real_ret.first->first);
+	REQUIRE(own_ret.first->second == real_ret.first->second);
+	REQUIRE(own_ret.second->first == real_ret.second->first);
+	REQUIRE(own_ret.second->second == real_ret.second->second);
 
 
-// 	real_ret_const = real.equal_range('d');
-// 	own_ret_const = own.equal_range('d');
+	real_ret_const = real.equal_range('d');
+	own_ret_const = own.equal_range('d');
 
-// 	REQUIRE(own_ret_const.first->first == real_ret_const.first->first);
-// 	REQUIRE(own_ret_const.first->second == real_ret_const.first->second);
-// 	REQUIRE(own_ret_const.second->first == real_ret_const.second->first);
-// 	REQUIRE(own_ret_const.second->second == real_ret_const.second->second);
+	REQUIRE(own_ret_const.first->first == real_ret_const.first->first);
+	REQUIRE(own_ret_const.first->second == real_ret_const.first->second);
+	REQUIRE(own_ret_const.second->first == real_ret_const.second->first);
+	REQUIRE(own_ret_const.second->second == real_ret_const.second->second);
 
-// 	own.erase('b');
-// 	real.erase('b');
+	own.erase('b');
+	real.erase('b');
 
-// 	own_ret = own.equal_range('b');
-// 	real_ret = real.equal_range('b');
+	own_ret = own.equal_range('b');
+	real_ret = real.equal_range('b');
 
-// 	REQUIRE(own_ret.first->first == real_ret.first->first);
-// 	REQUIRE(own_ret.first->second == real_ret.first->second);
-// 	REQUIRE(own_ret.second->first == real_ret.second->first);
-// 	REQUIRE(own_ret.second->second == real_ret.second->second);
-// }
+	REQUIRE(own_ret.first->first == real_ret.first->first);
+	REQUIRE(own_ret.first->second == real_ret.first->second);
+	REQUIRE(own_ret.second->first == real_ret.second->first);
+	REQUIRE(own_ret.second->second == real_ret.second->second);
+}
