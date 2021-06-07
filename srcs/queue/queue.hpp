@@ -26,32 +26,30 @@ namespace ft{
 			void push(const value_type& val){return (_ctype.push_back(val));}
 			void pop(){return (_ctype.pop_front());}
 
-		// Relational operators
-			template <class value_type, class containter_type>
-			friend bool operator==(const queue<value_type,containter_type>& lhs, const queue<value_type,containter_type>& rhs){
-				return (lhs._ctype == rhs._ctype);}
+			template <class value_type, class ctnr>
+			friend bool operator==(const queue<value_type, ctnr>& lhs, const queue<value_type, ctnr>& rhs);
 
-			template <class value_type, class containter_type>
-			friend bool operator!=(const queue<value_type,containter_type>& lhs, const queue<value_type,containter_type>& rhs){
-				return (lhs._ctype != rhs._ctype);}
-
-			template <class value_type, class containter_type>
-			friend bool operator<(const queue<value_type,containter_type>& lhs, const queue<value_type,containter_type>& rhs){
-				return (lhs._ctype < rhs._ctype);}
-
-			template <class value_type, class containter_type>
-			friend bool operator<=(const queue<value_type,containter_type>& lhs, const queue<value_type,containter_type>& rhs){
-				return (lhs._ctype <= rhs._ctype);}
-
-			template <class value_type, class containter_type>
-			friend bool operator>(const queue<value_type,containter_type>& lhs, const queue<value_type,containter_type>& rhs){
-				return (lhs._ctype > rhs._ctype);}
-
-			template <class value_type, class containter_type>
-			friend bool operator>=(const queue<value_type,containter_type>& lhs, const queue<value_type,containter_type>& rhs){
-				return (lhs._ctype >= rhs._ctype);}
-
-
+			template <class value_type, class ctnr>
+			friend bool operator<(const queue<value_type, ctnr>& lhs, const queue<value_type, ctnr>& rhs);
 	};
+		// Relational operators
+			template <class value_type, class ctnr>
+			bool operator==(const queue<value_type, ctnr>& lhs, const queue<value_type, ctnr>& rhs){ return (lhs._ctype == rhs._ctype);}
+
+			template <class value_type, class ctnr>
+			bool operator<(const queue<value_type, ctnr>& lhs, const queue<value_type, ctnr>& rhs){ return (lhs._ctype < rhs._ctype);}
+
+			template <class value_type, class ctnr>
+			bool operator!=(const queue<value_type, ctnr>& lhs, const queue<value_type, ctnr>& rhs){ return !(lhs == rhs);}
+
+			template <class value_type, class ctnr>
+			bool operator<=(const queue<value_type, ctnr>& lhs, const queue<value_type, ctnr>& rhs){ return !(rhs < lhs);}
+
+			template <class value_type, class ctnr>
+			bool operator>(const queue<value_type, ctnr>& lhs, const queue<value_type, ctnr>& rhs){ return (rhs < lhs);}
+
+			template <class value_type, class ctnr>
+			bool operator>=(const queue<value_type, ctnr>& lhs, const queue<value_type, ctnr>& rhs){ return !(lhs < rhs);}
+
 }
 #endif

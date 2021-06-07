@@ -6,6 +6,12 @@
 # include <memory>
 # include <iterator>
 # include <algorithm>
+# include <iostream>
+# include <exception>
+
+# include "Utils.hpp"
+// # include "../list/bidirectionalIterator.hpp"
+// # include "../list/reverseIterator.hpp"
 
 namespace ft{
     template < class T, class Alloc = std::allocator<T> >
@@ -19,10 +25,10 @@ namespace ft{
             typedef T           	*pointer;
             typedef const T     	*const_pointer;
 
-			typedef randomAccessIterator<value_type>			iterator;
-			typedef constRandomAccessIterator<value_type>		const_iterator;
-			typedef revRandomAccessIterator<value_type>			reverse_iterator;
-			typedef constRevRandomAccessIterator<value_type>	const_reverse_iterator;
+			typedef RandomAccessIterator<T, T*, T&>						iterator;
+			typedef RandomAccessIterator<T, const T*, const T&>			const_iterator;
+			typedef ReverseRandomAccessIterator<T, T*, T&>				reverse_iterator;
+			typedef ReverseRandomAccessIterator<T, const T*, const T&>	const_reverse_iterator;
 
 			typedef ptrdiff_t		difference_type;
 			typedef size_t			size_type;
@@ -111,9 +117,14 @@ namespace ft{
 		}
 
 		void reserve(size_type n){
+			if (n > max_size())
+				throw std::length_error("allocator<T>::allocate(size_t n) 'n' exceeds maximum supported size");
 			if (n <= _capacity)
 				return ;
-			_capacity = (_capacity == 0 ? 1 : _capacity * 2);
+			if (n > (_capacity * 2))
+				_capacity = n;
+			else
+				_capacity = (_capacity == 0 ? 1 : _capacity * 2);
 			pointer tmp = new value_type[_capacity];
 			for (size_type i = 0; i < _size; ++i)
 				tmp[i] = _array[i];
@@ -122,8 +133,8 @@ namespace ft{
 		}
 
 		// Element access
-		reference operator[](size_type n){return (*(_array + n));}
-		const_reference operator[](size_type n) const{return (*(_array + n));}
+		reference operator[](size_type n){return (_array[n]);}
+		const_reference operator[](size_type n) const{return (_array[n]);}
 
 		reference at(size_type n){
 			if (n < _size)
@@ -147,18 +158,24 @@ namespace ft{
 		void assign(InputIterator first, InputIterator last,
 				typename ft::check_type<typename ft::iterator_traits<InputIterator>::iterator_category>::type* = 0) {
 			clear();
+			size_t i = 0;
+			for (InputIterator it = first; it != last; ++it)
+				i++;
+			reserve(i);
 			for (; first != last; ++first)
 				push_back(*first);
 		}
 
 		void assign(size_type n, const value_type& val){
 			clear();
-			for (; n > 0; n--)
-				push_back(val);
+			reserve(n);
+			_size = n;
+			for (size_t i = 0; i < _size; i++)
+				this->_array[i] = val;
 		}
 
 		void push_back(const value_type& val){
-			if (_size == _capacity)
+			if (_size >= _capacity)
 				reserve(_size + 1);
 			_array[_size] = val;
 			++_size;
@@ -211,26 +228,17 @@ namespace ft{
 		}
 
 		iterator erase(iterator position){
-			vector tmp;
-			iterator it = begin();
-			for (; it != position; ++it)
-				tmp.push_back(*it);
-			++position;
-			for (it = end(); position != it; ++position)
-				tmp.push_back(*position);
-			assign(tmp.begin(), tmp.end());
+			erase(position, position + 1);
 			return (position);
 		}
 
 		iterator erase(iterator first, iterator last){
-			vector tmp;
-			iterator it = begin();
-			for (; it != first; ++it)
-				tmp.push_back(*it);
-			for (it = end(); last != it; ++last)
-				tmp.push_back(*last);
-			assign(tmp.begin(), tmp.end());
-			return (last);
+			vector tmp(last, end());
+			while (first != end())
+				pop_back();
+			for (iterator it = tmp.begin(); it != tmp.end(); ++it)
+				push_back(*it);
+			return (first);
 		}
 
 		void swap(vector& x){
@@ -262,8 +270,9 @@ namespace ft{
 	template<class value_type, class allocator_type>
 	bool operator!=(const vector<value_type, allocator_type>& lhs, const vector<value_type, allocator_type>& rhs) {return (!(lhs == rhs));}
 
-	template<class value_type, class allocator_type>
-	bool operator<(const vector<value_type, allocator_type>& lhs, const vector<value_type, allocator_type>& rhs) {return (std::lexicographical_compare(lhs.begin(), lhs.end(), rhs.begin(), rhs.end()));}
+	template <class T, class Alloc>
+	bool	operator<(const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs)
+	{ return (ft::lexicographical_compare(lhs.begin(), lhs.end(), rhs.begin(), rhs.end()));}
 
 	template<class value_type, class allocator_type>
 	bool operator<=(const vector<value_type, allocator_type>& lhs, const vector<value_type, allocator_type>& rhs) {return (!(rhs < lhs));}

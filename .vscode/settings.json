@@ -77,6 +77,8 @@
 		"utility": "cpp",
 		"variant": "cpp",
 		"filesystem": "cpp",
-		"queue": "cpp"
+		"queue": "cpp",
+		"__memory": "cpp",
+		"clocale": "cpp"
 	}
 }

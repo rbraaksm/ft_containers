@@ -25,37 +25,30 @@ namespace ft{
 			void push (const value_type& val){return (_ctype.push_back(val));}
 			void pop(){return (_ctype.pop_back());}
 
-		// Relational operators
-			template <class value_type, class container_type>
-  			friend bool operator==(const stack<value_type, container_type>& lhs, const stack<value_type, container_type>& rhs){
-				  return (lhs._ctype == rhs._ctype);}
+			template <class value_type, class ctnr>
+			friend bool operator==(const stack<value_type, ctnr>& lhs, const stack<value_type, ctnr>& rhs);
 
-			template <class value_type, class container_type>
-  			friend bool operator!=(const stack<value_type, container_type>& lhs, const stack<value_type, container_type>& rhs){
-				  return (lhs._ctype != rhs._ctype);}
-
-			template <class value_type, class container_type>
-			friend bool operator<(const stack<value_type, container_type>& lhs, const stack<value_type, container_type>& rhs){
-				return (lhs._ctype < rhs._ctype);}
-
-			template <class value_type, class container_type>
-			friend bool operator<=(const stack<value_type, container_type>& lhs, const stack<value_type, container_type>& rhs){
-				return (lhs._ctype <= rhs._ctype);}
-
-			template <class value_type, class container_type>
-			friend bool operator>(const stack<value_type, container_type>& lhs, const stack<value_type, container_type>& rhs){
-				return (lhs._ctype > rhs._ctype);}
-
-			template <class value_type, class container_type>
-			friend bool operator>=(const stack<value_type, container_type>& lhs, const stack<value_type, container_type>& rhs){
-				return (lhs._ctype >= rhs._ctype);}
-
-
-
-
-
-
+			template <class value_type, class ctnr>
+			friend bool operator<(const stack<value_type, ctnr>& lhs, const stack<value_type, ctnr>& rhs);
 	};
 
+		// Relational operators
+			template <class value_type, class ctnr>
+			bool operator==(const stack<value_type, ctnr>& lhs, const stack<value_type, ctnr>& rhs){return (lhs._ctype == rhs._ctype);}
+
+			template <class value_type, class ctnr>
+			bool operator<(const stack<value_type, ctnr>& lhs, const stack<value_type, ctnr>& rhs){return (lhs._ctype < rhs._ctype);}
+
+			template <class value_type, class ctnr>
+			bool operator!=(const stack<value_type, ctnr>& lhs, const stack<value_type, ctnr>& rhs){return !(lhs == rhs);}
+
+			template <class value_type, class ctnr>
+			bool operator<=(const stack<value_type, ctnr>& lhs, const stack<value_type, ctnr>& rhs){return !(rhs < lhs);}
+
+			template <class value_type, class ctnr>
+			bool operator>(const stack<value_type, ctnr>& lhs, const stack<value_type, ctnr>& rhs){return (rhs < lhs);}
+
+			template <class value_type, class ctnr>
+			bool operator>=(const stack<value_type, ctnr>& lhs, const stack<value_type, ctnr>& rhs){return !(lhs < rhs);}
 }
 #endif

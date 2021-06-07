@@ -1,203 +1,116 @@
-#pragma once
+#ifndef BIDIRECTIONALITERATOR_HPP
+# define BIDIRECTIONALITERATOR_HPP
 
-namespace ft{
-	template < typename T, typename N, class Category = std::bidirectional_iterator_tag >
-	class bidirectionalIterator {
+#include "Node.hpp"
+#include <stddef.h>
+
+namespace ft
+{
+
+	// template<class T> class ListIterator;
+	template<class T, class N> class ConstListIterator;
+
+	template<class T, class N, class Category = std::bidirectional_iterator_tag >
+	class ListIterator
+	{
 		public:
-			typedef T							value_type;
-			typedef value_type&					reference;
-			typedef value_type*					pointer;
-			typedef N                           node_pointer;
-			typedef size_t						size_type;
-			typedef ptrdiff_t					difference_type;
-			typedef Category					iterator_category;
-			typedef bidirectionalIterator		type;
+			typedef T 					value_type;
+			typedef value_type* 		pointer;
+			typedef value_type& 		reference;
+			typedef const value_type& 	const_reference;
+			typedef ptrdiff_t			difference_type;
+			typedef Node<value_type>*	node_pointer;
+			typedef Category			iterator_category;
 
 		protected:
-			node_pointer _ptr;
+			node_pointer	node;
 
 		public:
-			bidirectionalIterator(): _ptr(NULL) {}
-			explicit bidirectionalIterator(node_pointer node): _ptr(node) {}
-			bidirectionalIterator(const bidirectionalIterator& obj) { *this = obj;}
-			virtual ~bidirectionalIterator() {}
-
-			bidirectionalIterator& operator=(const bidirectionalIterator& obj) {
-				if (&obj != this){
-					_ptr = obj._ptr;
-				}
-				return (*this);
+			ListIterator() : node(NULL) {}
+			ListIterator(const ListIterator& other) : node(other.node) {}
+			ListIterator(Node<value_type>* node) : node(node) {}
+			~ListIterator() {}
+			ListIterator& operator=(const ListIterator& other)
+			{
+				node = other.node;
+				return *this;
 			}
 
-			bidirectionalIterator	operator++(int) {
-				bidirectionalIterator	ret(*this);
-				_ptr = _ptr->getNext();
-				return (ret);
+			bool operator==(const ListIterator& other) const
+			{ return node == other.node; }
+
+			bool operator!=(const ListIterator& other) const
+			{ return node != other.node; }
+
+			reference operator*() const
+			{ return node->val; }
+
+			pointer operator->() const
+			{ return &(node->val); }
+
+			ListIterator operator++()
+			{
+				node = node->next;
+				return *this;
 			}
 
-			bidirectionalIterator&	operator++() {
-				_ptr = _ptr->getNext();
-				return (*this);
+			ListIterator operator++(int)
+			{
+				ListIterator cpy(*this);
+				node = node->next;
+				return cpy;
 			}
 
-			bidirectionalIterator	operator--(int) {
-				bidirectionalIterator	ret(*this);
-				_ptr = _ptr->getPrev();
-				return (ret);
+			ListIterator operator--()
+			{
+				node = node->prev;
+				return *this;
 			}
 
-			bidirectionalIterator&	operator--() {
-				_ptr = _ptr->getPrev();
-				return (*this);
+			ListIterator operator--(int)
+			{
+				ListIterator cpy(*this);
+				node = node->prev;
+				return cpy;
 			}
 
-			reference	operator*() {return (_ptr->_data);}
-			pointer	operator->() {return (&(this->_ptr->_data));}
+			Node<T>* getNode()
+			{
+				return node;
+			}
 
-			bool	operator==(const bidirectionalIterator &obj) {return (_ptr == obj._ptr);}
-			bool	operator!=(const bidirectionalIterator &obj) {return (_ptr != obj._ptr);}
-			bool	operator>=(const bidirectionalIterator &obj) {return (_ptr >= obj._ptr);}
-
-			node_pointer getPtr() const {return _ptr;}
+			operator ConstListIterator<T, N>() const { return ConstListIterator<T, N>(node); }
+			operator ListIterator<T, N>() const { return ListIterator<T, N>(node); }
 	};
 
-	template < typename T, typename N, class Category = std::bidirectional_iterator_tag >
-	class constBidirectionalIterator: public bidirectionalIterator<T, N> {
+	template<class T, class N>
+	class ConstListIterator : public ListIterator<T, N>
+	{
 		public:
-			typedef T							value_type;
-			typedef value_type&					reference;
-			typedef const value_type&			const_reference;
-			typedef value_type*					pointer;
-			typedef const value_type*			const_pointer;
-			typedef N                           node_pointer;
-			typedef size_t						size_type;
-			typedef ptrdiff_t					difference_type;
-			typedef Category					iterator_category;
-			typedef constBidirectionalIterator	type;
+		
+			// typedef T const & const_reference;
+			// typedef T const * const_pointer;
 
-			constBidirectionalIterator(): bidirectionalIterator<T, N>() {}
-			explicit constBidirectionalIterator(node_pointer node): bidirectionalIterator<T, N>(node) {}
-			virtual ~constBidirectionalIterator() {}
-			constBidirectionalIterator(const constBidirectionalIterator& obj): bidirectionalIterator<T,N>(obj) { *this = obj;}
-			constBidirectionalIterator(const bidirectionalIterator<T, N>& obj): bidirectionalIterator<T,N>(obj) { *this = obj;}
-
-			constBidirectionalIterator& operator=(const constBidirectionalIterator& obj) {
-				if (&obj != this) {
-					this->_ptr = obj.getPtr();
-				}
-				return (*this);
+			ConstListIterator() : ListIterator<T, N>(){}
+			ConstListIterator& operator=(const ConstListIterator& other)
+			{
+				ListIterator<T, N>::operator=(other);
+				return *this;
 			}
-			constBidirectionalIterator& operator=(const bidirectionalIterator<T, N>& obj) {
-				if (&obj != this) {
-					this->_ptr = obj.getPtr();
-				}
-				return (*this);
-			}
-			const_reference	operator*() {return (this->_ptr->_data);}
-			const_pointer	operator->() {return &this->_ptr->_data;}
 
-			bool	operator==(const constBidirectionalIterator &obj) {return (this->_ptr == obj._ptr);}
-			bool	operator!=(const constBidirectionalIterator &obj) {return (this->_ptr != obj._ptr);}
+			ConstListIterator(Node<T>* node)
+			{
+				this->node = node;
+			}
+
+			// const_reference operator*() const
+			// { return this->node->val; }
+
+			// const_pointer operator->() const
+			// { return &(this->node->val); }
+
+			// operator ReverseConstListIterator<T>() const { return ReverseConstListIterator<T>(this->node); }
 	};
-
-	template < typename T, typename N, class Category = std::bidirectional_iterator_tag >
-	class revBidirectionalIterator {
-		public:
-			typedef T							value_type;
-			typedef value_type&					reference;
-			typedef value_type*					pointer;
-			typedef N                           node_pointer;
-			typedef size_t						size_type;
-			typedef ptrdiff_t					difference_type;
-			typedef Category					iterator_category;
-			typedef revBidirectionalIterator	type;
-
-		protected:
-			node_pointer _ptr;
-
-		public:
-			revBidirectionalIterator(): _ptr(NULL) {}
-			explicit revBidirectionalIterator(node_pointer node): _ptr(node) {}
-			virtual ~revBidirectionalIterator() {}
-			revBidirectionalIterator(const revBidirectionalIterator& obj) { *this = obj;}
-
-			revBidirectionalIterator& operator=(const revBidirectionalIterator& obj) {
-				if (&obj != this) {
-					_ptr = obj._ptr;
-				}
-				return (*this);
-			}
-
-			revBidirectionalIterator	operator++(int) {
-				revBidirectionalIterator	ret(*this);
-				_ptr = _ptr->getPrev();
-				return (ret);
-			}
-
-			revBidirectionalIterator&	operator++() {
-				_ptr = _ptr->getPrev();
-				return (*this);
-			}
-
-			revBidirectionalIterator	operator--(int) {
-				revBidirectionalIterator	ret(*this);
-				_ptr = _ptr->getNext();
-				return (ret);
-			}
-
-			revBidirectionalIterator&	operator--() {
-				_ptr = _ptr->getNext();
-				return (*this);
-			}
-
-			reference	operator*() {return (_ptr->_data);}
-			pointer	operator->() {return (&this->_ptr->_data);}
-
-			bool	operator==(const revBidirectionalIterator &obj) {return (_ptr == obj._ptr);}
-			bool	operator!=(const revBidirectionalIterator &obj) {return (_ptr != obj._ptr);}
-
-			node_pointer getPtr() const {return (_ptr);}
-	};
-
-	template < typename T, typename N, class Category = std::bidirectional_iterator_tag >
-	class constRevBidirectionalIterator: public revBidirectionalIterator<T, N> {
-		public:
-			typedef T								value_type;
-			typedef value_type&						reference;
-			typedef const value_type&				const_reference;
-			typedef value_type*						pointer;
-			typedef const value_type*				const_pointer;
-			typedef N								node_pointer;
-			typedef size_t							size_type;
-			typedef ptrdiff_t						difference_type;
-			typedef Category						iterator_category;
-			typedef constRevBidirectionalIterator	type;
-
-			constRevBidirectionalIterator(): revBidirectionalIterator<T, N>() {}
-			explicit constRevBidirectionalIterator(node_pointer node): revBidirectionalIterator<T, N>(node) {}
-			virtual ~constRevBidirectionalIterator() {}
-			constRevBidirectionalIterator(const constRevBidirectionalIterator& obj): revBidirectionalIterator<T, N>(obj) { *this = obj;}
-			constRevBidirectionalIterator(const revBidirectionalIterator<T, N>& obj): revBidirectionalIterator<T, N>(obj) { *this = obj;}
-
-			constRevBidirectionalIterator& operator=(const constRevBidirectionalIterator& obj) {
-				if (&obj != this) {
-					this->_ptr = obj.getPtr();
-				}
-				return (*this);
-			}
-
-			constRevBidirectionalIterator& operator=(const revBidirectionalIterator<T, N>& obj) {
-				if (&obj != this) {
-					this->_ptr = obj.getPtr();
-				}
-				return (*this);
-			}
-
-			const_reference	operator*() {return (this->_ptr->_data);}
-			const_pointer	operator->() {return (&this->_ptr->_data);}
-
-			bool	operator==(const constRevBidirectionalIterator &obj) {return (this->_ptr == obj._ptr);}
-			bool	operator!=(const constRevBidirectionalIterator &obj) {return (this->_ptr != obj._ptr);}
-	};
-
 }
+
+#endif

@@ -3,8 +3,9 @@
 
 # include <iostream>
 # include "mapNode.hpp"
-# include "ft_Pair.hpp"
-# include "../list/BidirectionalIterator.hpp"
+# include "Pair.hpp"
+# include "../list/bidirectionalIterator.hpp"
+# include "../list/reverseIterator.hpp"
 # include "../Traits.hpp"
 
 // # include <map>
@@ -32,10 +33,14 @@ namespace ft{
 			typedef mapNode<value_type>*					node_pointer;
 			typedef ft::pair<const Key,T> 					pair;
 
-			typedef bidirectionalIterator<value_type, node_pointer, Alloc>			iterator;
-			typedef constBidirectionalIterator<value_type, node_pointer, Alloc>		const_iterator;
-			typedef revBidirectionalIterator<value_type, node_pointer, Alloc>		reverse_iterator;
-			typedef constRevBidirectionalIterator<value_type, node_pointer, Alloc>	const_reverse_iterator;
+			typedef ListIterator<T, node_pointer> 				iterator;
+			typedef ConstListIterator<T, node_pointer>			const_iterator;
+			typedef ReverseListIterator<T, node_pointer>		reverse_iterator;
+			typedef ConstReverseListIterator<T, node_pointer>	const_reverse_iterator;
+			// typedef bidirectionalIterator<value_type, node_pointer, Alloc>			iterator;
+			// typedef constBidirectionalIterator<value_type, node_pointer, Alloc>		const_iterator;
+			// typedef revBidirectionalIterator<value_type, node_pointer, Alloc>		reverse_iterator;
+			// typedef constRevBidirectionalIterator<value_type, node_pointer, Alloc>	const_reverse_iterator;
 
 			typedef ptrdiff_t		difference_type;
 			typedef size_t			size_type;
@@ -44,7 +49,7 @@ namespace ft{
 			friend class map;
 			protected:
 				Compare comp;
-				explicit value_compare(Compare c) : comp(c) {}
+				value_compare(Compare c) : comp(c) {}
 			public:
 				typedef bool result_type;
 				typedef value_type first_argument_type;
@@ -65,7 +70,6 @@ namespace ft{
 			// Constructors
 				explicit map(const key_compare& comp = key_compare(), const allocator_type& alloc = allocator_type()) :
 					_root(), _top(new node), _bottom(new node), _comp(comp), _size(0), _alloc(alloc){
-
 					_bottom->_parent = _top;
 					_top->_parent = _bottom;
 				}
@@ -84,7 +88,6 @@ namespace ft{
 					_top->_parent = _bottom;
 					_alloc = x._alloc;
 					insert(x.begin(), x.end());
-					// *this = x;
 				}
 
 				// Destructor
@@ -150,19 +153,14 @@ namespace ft{
 				void insert (InputIterator first, InputIterator last,
 							typename ft::check_type<typename ft::iterator_traits<InputIterator>::iterator_category>::type* = 0) {
 					while (first != last) {
-						
+
 						insert(*first);
 						++first;
 					}
 				}
-				// template <class InputIterator>
-  				// void	insert(typename enable_if<is_input_iterator<InputIterator>::value, InputIterator>::type first, InputIterator last){
-				// 	  for (; first != last; ++first)
-				// 	  	insert(++first);
-				// }
 
 				void	erase(iterator position){
-					node* look = findNode(position.getPtr(), position->first);
+					node* look = findNode(position.getNode(), position->first);
 					if (look && _size)
 						deleteNode(look);
 				}
@@ -369,11 +367,14 @@ namespace ft{
 						_bottom->_parent = _root->_right;
 						_root->_right->_parent->_left = _bottom;
 						_root = _root->_right;
+						_root->_parent = NULL;
+
 					}
 					else if (_root->_right == _top){
-						_bottom->_parent = _root->_left;
-						_root->_left->_parent->_right = _bottom;
+						_top->_parent = _root->_left;
+						_root->_left->_parent->_right = _top;
 						_root = _root->_left;
+						_root->_parent = NULL;
 
 					}
 					else if (_root->_right && _root->_left) {

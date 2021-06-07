@@ -1,124 +1,32 @@
 #include "list.hpp"
-
 #include <list>
-#include <math.h>
-
-bool same_integral_part (double first, double second)
-{ return ( int(first)==int(second) ); }
-
-struct is_near {
-	bool operator() (double first, double second)
-	{ return (fabs(first-second)<5.0); }
-};
+#include <iostream>
 
 int main(void){
-    ft::list<double>	own;
-	std::list<double>	real;
+	int sum = 0;
+	ft::list<int>	own(5);
+	std::list<int>	real(5);
 
-	own.push_back(12.15); real.push_back(12.15);
-	own.push_back(2.72); real.push_back(2.72);
-	own.push_back(73.0); real.push_back(73.0);
-	own.push_back(12.77); real.push_back(12.77);
-	own.push_back(3.14); real.push_back(3.14);
-	own.push_back(12.77); real.push_back(12.77);
-	own.push_back(73.35); real.push_back(73.35);
-	own.push_back(72.25); real.push_back(72.25);
-	own.push_back(15.3); real.push_back(15.3);
-	own.push_back(72.25); real.push_back(72.25);
-
-	ft::list<double>::iterator		own_it = own.begin();
-	std::list<double>::iterator		real_it = real.begin();
-
-    std::cout << "OWN LIST\n";
-    for(own_it = own.begin(); own_it != own.end(); ++own_it)
-        std::cout << " " << *own_it;
-        std::cout << "\n";
-    std::cout << "REAL LIST\n";
-    for(real_it = real.begin(); real_it != real.end(); ++real_it)
-        std::cout << " " << *real_it;
-        std::cout << "\n\n";
-
-	own.sort();
-	real.sort();
-	
-	own.unique();
-	real.unique();
-
-	own.unique(same_integral_part);
-	real.unique(same_integral_part);
-
-    std::cout << "OWN LIST\n";
-    for(own_it = own.begin(); own_it != own.end(); ++own_it)
-        std::cout << " " << *own_it;
-        std::cout << "\n";
-    std::cout << "REAL LIST\n";
-    for(real_it = real.begin(); real_it != real.end(); ++real_it)
-        std::cout << " " << *real_it;
-        std::cout << "\n\n";
-
-    // std::cout << "Own: " << own.size() << std::endl;
-    // std::cout << "Real: " << real.size() << std::endl;
-    // std::cout << "Own: " << own.empty() << std::endl;
-    // std::cout << "Real: " << real.empty() << std::endl;
-    // std::cout << "Own: " << own.front() << std::endl;
-    // std::cout << "Real: " << real.front() << std::endl;
-    // std::cout << "Own: " << own.back() << std::endl;
-    // std::cout << "Real: " << real.back() << std::endl;
-
-
-	while (own_it != own.end())
+	for(int i = 0; i < 5; i++)
 	{
-        std::cout << "Own:  " << *own_it << std::endl;
-        std::cout << "Real: " << *real_it << std::endl;
-
-		++own_it;
-		++real_it;
+		real.push_back(sum);
+		own.push_back(sum);
+		sum += 1;
 	}
 
-	own.unique(is_near());
-	real.unique(is_near());
+	ft::list<int>::const_reverse_iterator own_rit = own.rbegin();
+	ft::list<int>::const_reverse_iterator old_own_rit;
+	std::list<int>::const_reverse_iterator real_rit = real.rbegin();
+	std::list<int>::const_reverse_iterator old_real_rit;
 
-	own_it = own.begin();
-	real_it = real.begin();
+	++own_rit;
+	++real_rit;
+	// REQUIRE(*own_rit == *real_rit);
 
-	while (own_it != own.end())
-	{
-        std::cout << "Own:  " << *own_it << std::endl;
-        std::cout << "Real: " << *real_it << std::endl;
+	old_own_rit = own_rit++;
+	old_real_rit = real_rit++;
 
-		++own_it;
-		++real_it;
-	}
-	// while (real_it != real.end())
-	// {
-	// 	REQUIRE(*own_it == *real_it);
-	// 	++own_it;
-	// 	++real_it;
-	// }
-	
-	// REQUIRE(own.size() == real.size());
-	// REQUIRE(own.empty() == real.empty());
-	// REQUIRE(own.front() == real.front());
-	// REQUIRE(own.back() == real.back());
-
-	// own_it = own.begin();
-	// real_it = real.begin();
-	
-	// while (own_it != own.end())
-	// {
-	// 	REQUIRE(*own_it == *real_it);
-	// 	++own_it;
-	// 	++real_it;
-	// }
-
-
-    // std::cout << "Own: " << own.size() << std::endl;
-    // std::cout << "Real: " << real.size() << std::endl;
-    // std::cout << "Own: " << own.empty() << std::endl;
-    // std::cout << "Real: " << real.empty() << std::endl;
-    // std::cout << "Own: " << own.front() << std::endl;
-    // std::cout << "Real: " << real.front() << std::endl;
-    // std::cout << "Own: " << own.back() << std::endl;
-    // std::cout << "Real: " << real.back() << std::endl;
-
+	std::cout << *old_own_rit << "\n";
+	// REQUIRE(*old_real_rit == *old_own_rit);
+	return (0);
 }
