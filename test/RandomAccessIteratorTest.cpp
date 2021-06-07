@@ -74,12 +74,12 @@ TEST_CASE( "RandomAccesIterator-tests", "[RandomAccesIterator]")
 		REQUIRE(*own_ite->data() == *real_ite->data());
 		REQUIRE(*own_it->data() == *real_it->data());
 	}
-
 	SECTION("[] overload")
 	{
 		REQUIRE(own_it[2] == real_it[2]);
 		REQUIRE(own_it2[2] == real_it2[2]);
 	}
+
 
 	SECTION("Increment - prefix and postfix")
 	{

@@ -891,6 +891,7 @@ TEST_CASE("vector-insert function", "[vector]")
 	REQUIRE(own.size() == real.size());
 
 }
+
 TEST_CASE("vector-erase function", "[vector]")
 {
 	ft::vector<int>		own;
@@ -922,8 +923,8 @@ TEST_CASE("vector-erase function", "[vector]")
 
 	REQUIRE(own[0] == real[0]);
 	REQUIRE(*it_own == *it_real);
-
 }
+
 TEST_CASE("vector-swap function", "[vector]")
 {
 	ft::vector<int> 	own(4, 100);

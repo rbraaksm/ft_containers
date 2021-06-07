@@ -6,7 +6,7 @@
 /*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/04/22 16:04:25 by timvancitte   #+#    #+#                 */
-/*   Updated: 2021/05/24 18:26:14 by rbraaksm      ########   odam.nl         */
+/*   Updated: 2021/06/05 11:52:37 by rbraaksm      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,8 @@
 #include <string>
 #include <iostream>
 
-#include "../srcs/list/BidirectionalIterator.hpp"
+#include "../srcs/list/bidirectionalIterator.hpp"
+#include "../srcs/list/reverseIterator.hpp"
 #include "../srcs/list/list.hpp"
 
 TEST_CASE( "BiDirectionalIterator-tests", "[BiDirectionalIterator]")
