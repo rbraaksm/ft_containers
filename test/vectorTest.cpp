@@ -1,7 +1,5 @@
-
 #include "Catch2.h"
-
-#include "../srcs/vector/vector.hpp"
+#include "../srcs/Vector.hpp"
 
 TEST_CASE("Vector: Iterator", "[Vector]") {
 	ft::vector<std::string> myVec;

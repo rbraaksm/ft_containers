@@ -1,20 +1,8 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        ::::::::            */
-/*   stackTest.cpp                                      :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2020/10/29 11:44:38 by skorteka      #+#    #+#                 */
-/*   Updated: 2021/06/07 14:10:46 by rbraaksm      ########   odam.nl         */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "Catch2.h"
 
-#include "../srcs/stack/stack.hpp"
-#include "../srcs/list/list.hpp"
-#include "../srcs/vector/vector.hpp"
+#include "../srcs/Stack.hpp"
+#include "../srcs/List.hpp"
+#include "../srcs/Vector.hpp"
 
 #include <list>
 #include <vector>

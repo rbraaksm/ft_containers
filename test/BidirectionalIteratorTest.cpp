@@ -1,23 +1,11 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        ::::::::            */
-/*   BidirectionalIteratorTest.cpp                      :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2021/04/22 16:04:25 by timvancitte   #+#    #+#                 */
-/*   Updated: 2021/06/05 11:52:37 by rbraaksm      ########   odam.nl         */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "Catch2.h"
 #include <list>
 #include <string>
 #include <iostream>
 
-#include "../srcs/list/bidirectionalIterator.hpp"
-#include "../srcs/list/reverseIterator.hpp"
-#include "../srcs/list/list.hpp"
+#include "../srcs/ListIterator.hpp"
+#include "../srcs/ReverseIterator.hpp"
+#include "../srcs/List.hpp"
 
 TEST_CASE( "BiDirectionalIterator-tests", "[BiDirectionalIterator]")
 {

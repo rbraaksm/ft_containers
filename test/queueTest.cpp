@@ -1,23 +1,9 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        ::::::::            */
-/*   queueTest.cpp                                      :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: renebraaksma <renebraaksma@student.42.f      +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2020/10/29 13:40:18 by skorteka      #+#    #+#                 */
-/*   Updated: 2021/06/05 12:12:41 by rbraaksm      ########   odam.nl         */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "Catch2.h"
 
-#include "../srcs/queue/queue.hpp"
-// #include "../srcs/list/list.hpp"
+#include "Queue.hpp"
 #include <deque>
 #include <queue>
 #include <list>
-
 
 TEST_CASE("Queue: Constructor", "[Queue]") {
 	std::deque<int> mydeque (3,100);          // deque with 3 elements

@@ -1,11 +1,10 @@
-
 #include "Catch2.h"
 #include <vector>
 #include <string>
 #include <iostream>
 
-#include "../srcs/vector/randomAccessIterator.hpp"
-#include "../srcs/vector/vector.hpp"
+#include "../srcs/RandomAccessIterator.hpp"
+#include "../srcs/Vector.hpp"
 
 TEST_CASE( "RandomAccesIterator-tests", "[RandomAccesIterator]")
 {

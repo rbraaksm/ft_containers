@@ -1,6 +1,6 @@
 #include "Catch2.h"
 
-#include "../srcs/list/list.hpp"
+#include "../srcs/List.hpp"
 #include <list>
 #include <iostream>
 
@@ -216,7 +216,7 @@ TEST_CASE("List: Erase", "[List]") {
 	for (int i=1; i<10; ++i) mylist.push_back(i*10);
 										// 10 20 30 40 50 60 70 80 90
 	it1 = it2 = mylist.begin(); 		// ^^
-	advance (it2,6);				// ^                 ^
+	std::advance (it2,6);				// ^                 ^
 	++it1;								//    ^              ^
 	REQUIRE(mylist.size() == 9);
 	REQUIRE(*it1 == 20);
@@ -1286,7 +1286,7 @@ TEST_CASE("list-clear", "[list]")
 	}
 }
 
-// /* ------------ OPERATIONS ------------ */
+/* ------------ OPERATIONS ------------ */
 
 TEST_CASE("list-splice version 1", "[list]")
 {
