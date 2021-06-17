@@ -23,10 +23,9 @@ class Node{
 			return (*this);
 		}
 
-		virtual ~Node(){return ;}
+		virtual ~Node(){return;}
 		Node*	getNext() const{return (next);}
 		Node*	getPrev() const{return (prev);}
-		T		getData(){return (data);}
 };
 
 #endif

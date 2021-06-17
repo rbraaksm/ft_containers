@@ -49,12 +49,12 @@ namespace ft {
 			};
 
 		private:
-				node_pointer	_root;
-				node_pointer	_top;
-				node_pointer	_bottom;
-				Compare			_comp;
-				size_t			_size;
-				Alloc			_alloc;
+			node_pointer	_root;
+			node_pointer	_top;
+			node_pointer	_bottom;
+			Compare			_comp;
+			size_t			_size;
+			Alloc			_alloc;
 
 		public:
 		/* Constructors */

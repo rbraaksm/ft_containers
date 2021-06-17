@@ -252,9 +252,7 @@ namespace ft{
   	void swap(vector<T,Alloc>& x, vector<T,Alloc>& y){ x.swap(y); }
 
 	template <class T, class Alloc>
-	bool operator== (const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs){
-		return (lhs.size() == rhs.size() && ft::equal(lhs.begin(), lhs.end(), rhs.begin()));
-	}
+	bool operator== (const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs){return (lhs.size() == rhs.size() && ft::equal(lhs.begin(), lhs.end(), rhs.begin()));}
 
 	template<class value_type, class allocator_type>
 	bool operator!=(const vector<value_type, allocator_type>& lhs, const vector<value_type, allocator_type>& rhs){return (!(lhs == rhs));}

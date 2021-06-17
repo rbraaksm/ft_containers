@@ -1,6 +1,6 @@
 #include "Catch2.h"
 
-#include "Queue.hpp"
+#include "../srcs/Queue.hpp"
 #include <deque>
 #include <queue>
 #include <list>

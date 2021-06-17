@@ -148,8 +148,8 @@ namespace ft {
 	template<typename Iterator>
 	typename ReverseRandomAccessIterator<Iterator>::difference_type operator-(const ReverseRandomAccessIterator<Iterator>& lhs, const ReverseRandomAccessIterator<Iterator>& rhs){return (lhs.base() - rhs.base());}
 
-	template<typename IteratorL, typename IteratorR>
-	typename ReverseRandomAccessIterator<IteratorL>::difference_type operator-(const ReverseRandomAccessIterator<IteratorL>& lhs, const ReverseRandomAccessIterator<IteratorR>& rhs){return (lhs.base() - rhs.base());}
+	template<typename left, typename right>
+	typename ReverseRandomAccessIterator<left>::difference_type operator-(const ReverseRandomAccessIterator<left>& lhs, const ReverseRandomAccessIterator<right>& rhs){return (lhs.base() - rhs.base());}
 
 	template <typename Iterator>
 	ReverseRandomAccessIterator<Iterator>	operator+(typename ReverseRandomAccessIterator<Iterator>::difference_type n, const ReverseRandomAccessIterator<Iterator>& x){return ReverseRandomAccessIterator<Iterator>(x.base() - n);}
