@@ -1,6 +1,6 @@
 
 #ifndef TRAITS_HPP
-#define TRAITS_HPP
+# define TRAITS_HPP
 
 # include <iostream>
 
